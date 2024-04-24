@@ -18,8 +18,10 @@ use App\Models\ZoneMappingWithTO;
 use App\Models\ZoneUser;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
+use Session;
 
 class IssueTrackingController extends Controller
 {
@@ -46,7 +48,6 @@ class IssueTrackingController extends Controller
                 ->whereHas('assign_histroty', function ($query) {
                     $query->where('from_user_id', Auth::user()->id);
                 });
-
         }
 
         $issue_tracking = $issue_tracking->when(request("issue_type"), function ($query) {
@@ -83,9 +84,24 @@ class IssueTrackingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $module, $user_id)
     {
         //
+        $user_tables = [
+            'ebill' => 'ebill_login',
+            'crs' => 'crs_users',
+            'hrms' => 'hrm_users',
+            'fts' =>'fts_login'
+        ];
+
+        $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
+        
+        $request->session()->put('user_name', $user[0]->name);
+        $request->session()->put('user_id', $user[0]->user_id);
+        $request->session()->put('user_type', $user[0]->user_type);
+        $request->session()->put('circle_zone', $user[0]->circle_zone);
+        $request->session()->put('id', $user[0]->id);
+
         $issue_type = IssueType::get();
         return view('issue.create', compact('issue_type'));
     }
@@ -112,23 +128,24 @@ class IssueTrackingController extends Controller
         ]);
 
         $issue_type = IssueType::select('short_name')->where('id', $request->issue_related_to)->first();
-        $user_type = userType::select('name')->where('id', Auth::user()->user_type)->first();
+    //  $user_type = userType::select('name')->where('id', Auth::user()->user_type)->first();
+        $user_type =  Session::get('user_type');
 
         $timestamp = time();
         $currentDate = date('Y-m-d ', $timestamp);
         $lastRecord = IssueTracking::latest()->first();
-        if(    $lastRecord)
+        if($lastRecord)
         {
-            $lastRecord=    $lastRecord->id+1;
+            $lastRecord = $lastRecord->id+1;
         }
         else
         {
             $lastRecord= 1;
         }
-        $serial_no = $issue_type->short_name . '-' . ucfirst(substr($user_type->name, 0, 1)) . '-' . $currentDate . '-' .$lastRecord;
+        $serial_no = $issue_type->short_name . '-' . ucfirst(substr($user_type, 0, 1)) . '-' . $currentDate . '-' .$lastRecord;
         $data =
             [
-                'users_id' => \Illuminate\Support\Facades\Auth::user()->id,
+                'users_id' => Session::get('id'),
                 'serial_no' => $serial_no,
                 'issue_type' => $request->issue_related_to,
                 'sub_issue_type' => $request->sub_issue_type,
@@ -136,7 +153,6 @@ class IssueTrackingController extends Controller
                 'application_status' => 1,
 
             ];
-
 
         $model = IssueTracking::create($data);
 
@@ -194,22 +210,21 @@ class IssueTrackingController extends Controller
 //            }
 //        }
 
-        $user_type = Auth::user()->user_type;
+        //$user_type = Auth::user()->user_type;
 
-
-        if ($user_type == 1) {
+        if ($user_type == 'Zone') {
             $zone = ZoneUser::where('user_id', Auth::user()->id)->first();
             $zone = $zone->zone_id;
 
         }
-        if ($user_type == 2) {
+        if ($user_type == 'Circle') {
             $zone = CircleUser::where('user_id', Auth::user()->id)->first();
             $zone = Circle::where('id', $zone->circle_id)->first();
 
             $zone = $zone->zone_id;
 
         }
-        if ($user_type == 3) {
+        if ($user_type == 'Division') {
             $zone = DivisionUser::where('user_id', Auth::user()->id)->first();
             $zone = Division::where('id', $zone->division_id)->first();
             $zone = $zone->zone_id;

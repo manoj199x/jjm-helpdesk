@@ -24,8 +24,14 @@ Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
 });
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('issue', \App\Http\Controllers\IssueTrackingController::class);
+// Route::group(['middleware' => 'auth'], function () {
+   // Route::resource('issue/smt/{module}/{user_id}/', \App\Http\Controllers\IssueTrackingController::class);
+    
+    Route::get('issue/smt/create/{module}/{user_id}/', [\App\Http\Controllers\IssueTrackingController::class, 'create'])->name('issue_create');
+    Route::post('issue/store', [\App\Http\Controllers\IssueTrackingController::class, 'store'])->name('issue.store');
+    Route::get('issue/index', [\App\Http\Controllers\IssueTrackingController::class, 'index'])->name('issue.index');
+
+    
     Route::resource('users', \App\Http\Controllers\UserCreateController::class);
     Route::get('/get-issue-types', [ \App\Http\Controllers\IssueTrackingController::class, 'getIssueTypes'])->name('get_issue_types');
     Route::get('/get-issue-data/{id}', [ \App\Http\Controllers\IssueTrackingController::class, 'getIssueData'])->name('get_issue_data');
@@ -37,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/issue_update/{id}', [ \App\Http\Controllers\IssueTrackingController::class, 'delete'])->name('delete');
     Route::get('/my-profile/{id}', [ \App\Http\Controllers\UserCreateController::class, 'get_myprofile'])->name('get_myprofile');
     Route::post('/update-my-profile/{id}', [ \App\Http\Controllers\UserCreateController::class, 'update_myprofile'])->name('update_myprofile');
-});
+
+    // });
 
 

@@ -122,12 +122,12 @@
                                     <div class="mb-3" wire:key="div-{{ $index }}">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <label for="exampleInputEmail1" class="form-label"> Select Documet
+                                                <label for="exampleInputEmail1" class="form-label"> Select Document
                                                     Type</label>
                                                 <select name="documents_type[]" id="documents.{{$index+1}}"
                                                         wire:model="documents.{{$index+1}}" class="form-select">
 
-                                                    <option>Select Documernt type</option>
+                                                    <option>Select Document type</option>
                                                     @foreach($document_type as $documents)
                                                         <option value="{{$documents->id}}">{{$documents->title}}</option>
                                                     @endforeach
@@ -156,7 +156,7 @@
 
                             </div>
                         </div>
-                        {{--                for sattic upload--}}
+                        {{--  for sattic upload--}}
 
 
                     </div>
