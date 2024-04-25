@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Division extends Model
 {
     use HasFactory;
+    protected $table = 'divisions';
+
     protected $fillable=[
         'division_name',
         'zone_id',

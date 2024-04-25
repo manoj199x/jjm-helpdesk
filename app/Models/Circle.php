@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Circle extends Model
 {
+    protected $table = 'circles';
     use HasFactory;
     protected $fillable=[
         'circle_name'
