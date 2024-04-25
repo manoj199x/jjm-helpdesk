@@ -141,7 +141,6 @@ class IssueTrackingController extends Controller
             'video'  => 'mimes:mp4,mov,ogg,qt | max:20000',
             'audio' => 'mimes:mp3,wav|max:2048',
             'document' => 'mimes:pdf,doc,docx',
-
         ]);
 
         $issue_type = IssueType::select('short_name')->where('id', $request->issue_related_to)->first();
@@ -168,7 +167,6 @@ class IssueTrackingController extends Controller
                 'sub_issue_type' => $request->sub_issue_type,
                 'description' => $request->description,
                 'application_status' => 1,
-
             ];
 
         $model = IssueTracking::create($data);
@@ -186,7 +184,8 @@ class IssueTrackingController extends Controller
                 ]);
             }
         }
-//        foreach($request->documents_type as $key => $doc_type)
+
+        //      foreach($request->documents_type as $key => $doc_type)
 //        {
 //            $filePath='';
 //             if( $doc_type==1 && $request->file('video') )

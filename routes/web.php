@@ -24,7 +24,7 @@ Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])-
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
 });
-// Route::group(['middleware' => 'auth'], function () {
+    // Route::group(['middleware' => 'auth'], function () {
    // Route::resource('issue/smt/{module}/{user_id}/', \App\Http\Controllers\IssueTrackingController::class);
     
     Route::get('issue/smt/create/{module}/{user_id}/', [\App\Http\Controllers\IssueTrackingController::class, 'create'])->name('issue_create');

@@ -20,13 +20,18 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-{{--                <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a>--}}
                 <h4>  
-                    {{-- {{Auth::user()->name}} --}}
-                    {{ Session::get('user_name') }} 
+                    @if(auth()->check())     
+                        {{ Auth::user()->name}} 
+                    @else
+                        @if(Session::has('id'))
+                            {{ Session::get('user_id') }}
+                            <p>{{ Session::get('user_type') }} </p>
+                        @endif
+                    @endif 
                 </h4>
                 <br/>
-                <p>{{ Session::get('user_type') }} </p>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                        aria-expanded="false">

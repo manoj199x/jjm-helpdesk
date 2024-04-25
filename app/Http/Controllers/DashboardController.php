@@ -22,7 +22,7 @@ class DashboardController extends Controller
 //
 //            $schemeCompletion = SchemeCompletion::where("created_at", '>', $sessionStart)->where("created_at", '<', $sessionEnd)->where("division_id", '=', $divisionId)->get();
 //
-//        }else {
+//        } else {
 //            $schemeCompletion = SchemeCompletion::where("created_at", '>', $sessionStart)->where("created_at", '<', $sessionEnd)->get();
 //        }
 
