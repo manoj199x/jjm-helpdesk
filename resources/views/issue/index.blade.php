@@ -53,11 +53,11 @@
                     <thead>
                     <tr>
                         <th >Sl no</th>
-                        <th >Issue no</th>
+                        <th >Issue Ticket no</th>
                         <th >Issue Related to</th>
                         <th >Issue type</th>
                         <th >Assign to</th>
-                        <th>Submission Date</th>
+                        <th >Submission Date</th>
                         <th >Status</th>
                         <th>#</th>
                     </tr>
@@ -69,18 +69,33 @@
                             <td>{{$issue_trackings->serial_no}}</td>
                             <td>{{$issue_trackings->issue_relato_to->name}}</td>
                             <td>{{$issue_trackings->issue_types->name ?? 'NA'}}</td>
-                            <td>{{$issue_trackings->assign_histroty->assign_to->name ?? 'NA'}}</td>
-                            <td>{{$issue_trackings->assign_histroty->sub_date ?? 'NA'}}</td>
-                            <td>{{$issue_trackings->issue_status_name->name ?? 'NA'}}</td>
+                            @foreach ($issue_trackings->assign_histroty as $history)
+                                @if($history->active==1)
+                                <td>{{ $history->assign_to->name ?? 'NA' }} </td>
+                                <td>{{ $history->sub_date ?? 'NA' }}</td>
+                                @endif
+                            @endforeach
+                            <td>
+                                <span class="badge bg-success"> {{$issue_trackings->issue_status_name->name ?? 'NA'}} </span>
+                            </td>
                             <td>
                             @can('accept_issue')
-                                <a class="btn btn-primary m-1" href="{{route('issue_approved',$issue_trackings->id)}}" @if($issue_trackings->accept==1)  title="Application already accepted"  onclick="return acceptmsg()" @endif><i class="fa fa-check"></i></a>
+                                @if($issue_trackings->accept!=1 && $issue_trackings->application_status==4 )
+                                     <a class="btn btn-primary m-1 w-20" href="{{route('issue_approved',$issue_trackings->id)}}" @if($issue_trackings->accept==1)  title="issue already accepted"  onclick="return acceptmsg()" @endif>  <i class="fa fa-check"></i> Accept</a>
+                                @endif
                             @endcan
-                            <a class="btn btn-success m-1" @if($issue_trackings->accept!=1) href="#" onclick="return viewAlert()" title="Please approved application first"
-                               @else  href="{{route('get_issue_data',$issue_trackings->id)}}" title="view" @endif><i class="fa fa-eye"></i></a>
+                            @if($issue_trackings->accept==1)
+                                <a class="btn btn-success m-1 w-20" 
+                                    @if($issue_trackings->accept!=1) href="#" onclick="return viewAlert()" title="Please approve the issue first"
+                                        @else  href="{{route('get_issue_data',$issue_trackings->id)}}" title="view" 
+                                    @endif>
+                                     <i class="fa fa-eye"></i> View
+                                </a>
+                            @endif
+
                             @can('delete_issue')
-                                <a class="btn btn-danger m-1" @if($issue_trackings->accept==1) href="#"  onclick="return alertmsg()" title=""
-                                   @else href="{{route('issue_delete',Crypt::encrypt($issue_trackings->id))}}" title="Delete" onclick="return confirmDelete()" @endif><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-danger m-1 w-20" @if($issue_trackings->accept==1) href="#"  onclick="return alertmsg()" title=""
+                                   @else href="{{route('issue_delete',Crypt::encrypt($issue_trackings->id))}}" title="Delete" onclick="return confirmDelete()" @endif><i class="fa fa-trash"></i> Delete</a>
                             @endcan
 {{--                                <a class="btn btn-success m-1"  href="{{route('get_issue_data',$issue_trackings->id)}}" title="view" ><i class="fa fa-eye"></i></a>--}}
 {{--                                <a class="btn btn-info m-1" @if($issue_trackings->accept==1) href="#" title=""--}}
@@ -106,16 +121,16 @@
 
         function alertmsg()
         {
-            return confirm('You can not delete this issue.Because issue request has already accepted');
+            return confirm('You can not delete this issue. Because issue request has already accepted');
         }
 
         function acceptmsg()
         {
-            return alert('You have already accept request');
+            return alert('You have already accepted the issue');
         }
         function viewAlert()
         {
-            return alert('Please approved application firsts');
+            return alert('Please approve the issue first');
         }
     </script>
 @endsection

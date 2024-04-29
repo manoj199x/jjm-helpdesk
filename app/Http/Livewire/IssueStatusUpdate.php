@@ -38,8 +38,13 @@ class IssueStatusUpdate extends Component
        if($this->status==3)
        {
 
-          AssignHistory::where('issue_id',$this->issueId)->update(['status'=>$this->status,'remarks'=>$this->remarks]);
+          AssignHistory::where('issue_id',$this->issueId)
+            ->where('active',1)
+            ->update(['status'=>$this->status,'remarks'=>$this->remarks]);
+            
           IssueTracking::where('id',$this->issueId)->update(['application_status'=>$this->status]);
+          
+
        }
         if($this->status==2)
         {
@@ -47,6 +52,7 @@ class IssueStatusUpdate extends Component
             $assign_history=AssignHistory::where('issue_id',$this->issueId)->where('active',1)->first();
 
             AssignHistory::where('issue_id',$this->issueId)->update(['active'=>0]);
+            
             $data=[
                 'issue_id'=>$this->issueId,
                 'from_user_id'=>  Auth::user()->id,
@@ -57,6 +63,7 @@ class IssueStatusUpdate extends Component
                 'status_updated_at'=>Carbon::now(),
             ];
             AssignHistory::create($data);
+
             IssueTracking::where('id',$this->issueId)->update(['application_status'=>$this->status]);
         }
 
@@ -75,8 +82,7 @@ class IssueStatusUpdate extends Component
         })->get();
         $issue_tracking=IssueTracking::with('issue_relato_to','user_details','issue_types','assign_histroty.assign_to','assign_histroty.status_name')
             ->where('id',$this->issueId)->first();
-        $issue = IssueTracking::findOrFail($this->issueId);
-        $documents = $issue->documents;
+        
 
         return view(
             'livewire.issue-status-update',
@@ -86,8 +92,6 @@ class IssueStatusUpdate extends Component
                 'role'=>$role,
                 'issueId'=>$this->issueId,
                 'issue_tracking'=>$issue_tracking,
-                'documents'=>$documents
-
             ]
         );
     }

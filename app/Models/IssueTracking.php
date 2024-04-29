@@ -33,7 +33,7 @@ class IssueTracking extends Model
     }
     public function assign_histroty()
     {
-        return $this->hasOne(AssignHistory::class,'issue_id','id');
+        return $this->hasMany(AssignHistory::class,'issue_id','id');
     }
 
     public function issue_status_name(){

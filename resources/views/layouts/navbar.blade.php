@@ -20,16 +20,16 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <h4>  
+              
                     @if(auth()->check())     
-                        {{ Auth::user()->name}} 
+                       <h4> {{ Auth::user()->name}}  </h4>
                     @else
                         @if(Session::has('id'))
-                            {{ Session::get('user_id') }}
+                           <h4> {{ Session::get('user_id') }} </h4>
                             <p>{{ Session::get('user_type') }} </p>
                         @endif
                     @endif 
-                </h4>
+                
                 <br/>
 
                 <li class="nav-item dropdown">

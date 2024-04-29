@@ -43,14 +43,14 @@ class IssueTrackingController extends Controller
     //      if($request->description )
     //      {
             if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS']) ) {
-                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty.assign_to', 'assign_histroty.status_name')
+                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty')
                     ->whereHas('assign_histroty', function ($query) {
                         $query->where('to_user_id', Auth::user()->id);
                     });
             } else {
-                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty.assign_to', 'assign_histroty.status_name')
+                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty')
                     ->whereHas('assign_histroty', function ($query) {
-                        $query->where('from_user_id', Auth::user()->id);
+                        $query->where('to_user_id', Auth::user()->id);
                     });
             }
             $issue_tracking = $issue_tracking->when(request("issue_type"), function ($query) {
@@ -63,7 +63,7 @@ class IssueTrackingController extends Controller
         }
         else {
             if(session()->has('id')) {
-                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty.assign_to', 'assign_histroty.status_name')
+                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty', 'assign_histroty')
                 ->whereHas('assign_histroty', function ($query) {
                     $query->where('from_user_id', session()->get('id'));
                 });
@@ -114,8 +114,9 @@ class IssueTrackingController extends Controller
         ];
 
         $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
-        
-        $request->session()->put('user_name', $user[0]->name);
+        if($module!='hrms') {
+            $request->session()->put('user_name', $user[0]->name);
+        }
         $request->session()->put('user_id', $user[0]->user_id);
         $request->session()->put('user_type', $user[0]->user_type);
         $request->session()->put('circle_zone', $user[0]->circle_zone);
@@ -144,7 +145,6 @@ class IssueTrackingController extends Controller
         ]);
 
         $issue_type = IssueType::select('short_name')->where('id', $request->issue_related_to)->first();
-    //  $user_type = userType::select('name')->where('id', Auth::user()->user_type)->first();
         $user_type =  Session::get('user_type');
 
         $timestamp = time();
@@ -166,7 +166,7 @@ class IssueTrackingController extends Controller
                 'issue_type' => $request->issue_related_to,
                 'sub_issue_type' => $request->sub_issue_type,
                 'description' => $request->description,
-                'application_status' => 1,
+                'application_status' => 4,
             ];
 
         $model = IssueTracking::create($data);
@@ -332,7 +332,9 @@ class IssueTrackingController extends Controller
         $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty.assign_to', 'assign_histroty.status_name')
             ->where('id', $id)->first();
 
-        return view('issue.show', compact('issue_tracking'));
+        $documents = $issue_tracking->documents;
+
+        return view('issue.show', compact('issue_tracking','documents'));
     }
 
     public function delete($id)
@@ -355,7 +357,7 @@ class IssueTrackingController extends Controller
         }
         else
         {
-            IssueTracking::where('id',$id)->update(['accept'=>1,'application_status'=>4]);
+            IssueTracking::where('id',$id)->update(['accept'=>1,'application_status'=>1]);
             return redirect()->back()->with('success', 'Issue  Accepted!');
         }
 

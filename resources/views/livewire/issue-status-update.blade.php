@@ -1,60 +1,12 @@
 <div>
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title fw-semibold mb-4">Document</h5>
-                <table class="table">
-                    <thead>
-                    <th>#</th>
-                    <th>Document type</th>
-                    <th>Action</th>
-                    @foreach($documents as $key=>$document)
-                        <tr>
-                            <td>{{++$key}}</td>
-                            <td>{{$document->document_types->title}}</td>
-
-                            <td><a class="button small green --jb-modal" data-target="sample-modal-2"
-                                   href="{{ Storage::url( $document->image_path) }}"
-                                   type="button" target="_blank">
-                                    <i class="fa fa-eye" style="font-size:20px "></i>
-                                </a>
-                            </td>
-
-                        </tr>
-                    @endforeach
-                    </thead>
-                    <tbody>
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        
         @if(session('success'))
             <div class="alert alert-success" role="alert">
                 {{ session('success') }}
             </div>
         @endif
         @can('update_issue')
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title fw-semibold mb-4"> User Details</h5>
-                    <table class="table">
-                        <thead>
-                        <th>Name</th>
-                        <td>{{$issue_tracking->user_details->name}}</td>
-                        <th>Email</th>
-                        <td>{{$issue_tracking->user_details->email}}</td>
-                        <th>Contact Number</th>
-                        <td>{{$issue_tracking->user_details->contact_number ??'N/A'}}</td>
-                        </thead>
-                        <tbody>
-
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Status Update</h5>
@@ -65,8 +17,9 @@
                                 <select name="status" id="status" wire:model="status" class="form-select">
                                     <option>Select Status</option>
                                     @foreach($status_name as $status_names)
-                                        <option
-                                                value="{{$status_names->id}}">{{$status_names->name}} </option>
+                                        @if($status_names->id!=4 &&$status_names->id !=1)
+                                            <option value="{{$status_names->id}}">{{$status_names->name}} </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
