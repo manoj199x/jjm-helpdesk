@@ -40,10 +40,13 @@ class IssueStatusUpdate extends Component
 
           AssignHistory::where('issue_id',$this->issueId)
             ->where('active',1)
-            ->update(['status'=>$this->status,'remarks'=>$this->remarks]);
+            ->update([
+                'status'=>$this->status,
+                'to_remarks'=>$this->remarks,
+                'is_closed'=>1
+            ]);
             
           IssueTracking::where('id',$this->issueId)->update(['application_status'=>$this->status]);
-          
 
        }
         if($this->status==2)
@@ -80,13 +83,14 @@ class IssueStatusUpdate extends Component
         $role = User::whereHas('roles', function ($query) {
             $query->where('title', 'SPS');
         })->get();
-        $issue_tracking=IssueTracking::with('issue_relato_to','user_details','issue_types','assign_histroty.assign_to','assign_histroty.status_name')
+        $issue_tracking=IssueTracking::with('issue_relato_to','issue_types')
             ->where('id',$this->issueId)->first();
         
 
         return view(
             'livewire.issue-status-update',
-            [  'issue_types' => $issue_types,
+            [  
+                'issue_types' => $issue_types,
                 'sub_issueTypes'=>$sub_issueTypes,
                 'status_name'=>$status_name,
                 'role'=>$role,

@@ -21,12 +21,14 @@ Route::get('register', [\App\Http\Controllers\RegisterController::class, 'create
 Route::post('register', [\App\Http\Controllers\RegisterController::class, 'store'])->name('register');
 
 Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
-});
+
+    // Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        
+    // });
     // Route::group(['middleware' => 'auth'], function () {
    // Route::resource('issue/smt/{module}/{user_id}/', \App\Http\Controllers\IssueTrackingController::class);
     
+    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
     Route::get('issue/smt/create/{module}/{user_id}/', [\App\Http\Controllers\IssueTrackingController::class, 'create'])->name('issue_create');
     Route::post('issue/store', [\App\Http\Controllers\IssueTrackingController::class, 'store'])->name('issue.store');
     Route::get('issue/index', [\App\Http\Controllers\IssueTrackingController::class, 'index'])->name('issue.index');

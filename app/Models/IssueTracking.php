@@ -43,8 +43,8 @@ class IssueTracking extends Model
     {
         return $this->hasMany(IssueDocument::class,'issue_id','id');
     }
-    public function user_details(){
-        return $this->belongsTo(User::class,'users_id','id');
-    }
+    // public function user_details(){
+    //     return $this->belongsTo(User::class,'users_id','id');
+    // }
 
 }

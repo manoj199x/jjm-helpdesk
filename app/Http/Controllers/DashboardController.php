@@ -10,6 +10,7 @@ use App\Models\VillagePhysicalProgress;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class DashboardController extends Controller
 {
@@ -25,21 +26,31 @@ class DashboardController extends Controller
 //        } else {
 //            $schemeCompletion = SchemeCompletion::where("created_at", '>', $sessionStart)->where("created_at", '<', $sessionEnd)->get();
 //        }
+        if(Auth::check()) {
+            $user = Auth::user();
+            $user_type=userType::select('name')->where('id',$user->user_type)->first();
+            if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS'])){
 
-        $user = Auth::user();
-        $user_type=userType::select('name')->where('id',$user->user_type)->first();
-        if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS'])){
+                $my_issues = \App\Models\AssignHistory::where('to_user_id',auth()->user()->id)->where('active',1)->get();
+                $pending_issue = $my_issues->where('status',1)-> count();
+                $resolved_issue = $my_issues->where('status',3)-> count();
+                $accept_issue = $my_issues->where('status',4)-> count();
 
-            $my_issues = \App\Models\AssignHistory::where('to_user_id',auth()->user()->id)->where('active',1)->get();
-            $pending_issue = $my_issues->where('status',1)-> count();
-            $resolved_issue = $my_issues->where('status',3)-> count();
-            $accept_issue = $my_issues->where('status',4)-> count();
+            }else{
+                $my_issues = \App\Models\IssueTracking::where('users_id',auth()->user()->id)->get();
+                $pending_issue = $my_issues->where('application_status',1)->where('users_id',auth()->user()->id)-> count();
+                $resolved_issue = $my_issues->where('application_status',3)->where('users_id',auth()->user()->id)-> count();
+                $accept_issue = $my_issues->where('application_status',4)->where('users_id',auth()->user()->id)-> count();
 
-        }else{
-            $my_issues = \App\Models\IssueTracking::where('users_id',auth()->user()->id)->get();
-            $pending_issue = $my_issues->where('application_status',1)->where('users_id',auth()->user()->id)-> count();
-            $resolved_issue = $my_issues->where('application_status',3)->where('users_id',auth()->user()->id)-> count();
-            $accept_issue = $my_issues->where('application_status',4)->where('users_id',auth()->user()->id)-> count();
+            }
+        } else {
+            if(Session::get('id')!=null)
+                $user_id = Session::get('id');
+                $user_type = Session::get('user_type');
+                $my_issues = \App\Models\IssueTracking::where('users_id',Session::get('id'))->get();
+                $pending_issue = $my_issues->where('application_status',1)->where('users_id',$user_id)-> count();
+                $resolved_issue = $my_issues->where('application_status',3)->where('users_id',$user_id)-> count();
+                $accept_issue = $my_issues->where('application_status',4)->where('users_id',$user_id)-> count();
 
         }
         $total_issue = $my_issues->count();

@@ -59,6 +59,9 @@ class IssueTrackingController extends Controller
             })->when(request("status"), function ($query) {
                 $query->where('application_status', request("status"));
 
+            })->when(request('ticket_no'), function ($query) {
+                $query->where('serial_no', 'like' ,'%'.request("ticket_no").'%' );
+            
             })->orderBy('id','desc')->paginate(10);
         }
         else {
@@ -73,6 +76,9 @@ class IssueTrackingController extends Controller
     
                 })->when(request("status"), function ($query) {
                     $query->where('application_status', request("status"));
+                
+                })->when(request('ticket_no'), function ($query) {
+                    $query->where('serial_no', 'like' ,'%'.request("ticket_no").'%' );
     
                 })->orderBy('id','desc')->paginate(10);
             }
@@ -162,7 +168,10 @@ class IssueTrackingController extends Controller
         $data =
             [
                 'users_id' => Session::get('id'),
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
                 'serial_no' => $serial_no,
+                'module' => Session::get('module'),
                 'issue_type' => $request->issue_related_to,
                 'sub_issue_type' => $request->sub_issue_type,
                 'description' => $request->description,
@@ -329,12 +338,21 @@ class IssueTrackingController extends Controller
 
     public function getIssueData($id)
     {
+        $user_tables = [
+            'ebill' => 'ebill_login',
+            'crs' => 'crs_users',
+            'hrms' => 'hrm_users',
+        ];
+
         $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty.assign_to', 'assign_histroty.status_name')
             ->where('id', $id)->first();
 
         $documents = $issue_tracking->documents;
+        $module = $issue_tracking->module;
 
-        return view('issue.show', compact('issue_tracking','documents'));
+        $issue_created_by = DB::table($user_tables[$module])->select('*')->where('id',$issue_tracking->users_id)->first();
+
+        return view('issue.show', compact('issue_tracking','documents','issue_created_by'));
     }
 
     public function delete($id)

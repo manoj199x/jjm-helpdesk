@@ -16,6 +16,10 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-sm">
+                                <label for="exampleInputEmail1" class="form-label">Ticket no.</label>
+                                <input class=form-control name="ticket_no" type="text" placeholder="Enter issue ticket no." />
+                            </div>
+                            <div class="col-sm">
                                 <label for="exampleInputEmail1" class="form-label">Issue related to</label>
                                 <select name="issue_type" class="form-select">
 

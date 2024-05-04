@@ -16,10 +16,7 @@ class CreateIssueTrackingsTable extends Migration
         Schema::create('issue_trackings', function (Blueprint $table) {
             $table->id();
             $table->integer('users_id');
-            $table->foreign('users_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->string('module');
             $table->integer('issue_type')->nullable();
             $table->integer('sub_issue_type')->nullable();
             $table->text('description')->nullable();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAcceptToIssueTrackings extends Migration
+class AddContactsColumnToIssueTabel extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,9 @@ class AddAcceptToIssueTrackings extends Migration
     public function up()
     {
         Schema::table('issue_trackings', function (Blueprint $table) {
-            $table->string('accept')->after('application_status')->nullable();
-            $table->string('is_closed')->after('application_status')->nullable();
+            //
+            $table->string('phone_number')->after('users_id');
+            $table->string('email')->after('users_id');
         });
     }
 
@@ -27,7 +28,7 @@ class AddAcceptToIssueTrackings extends Migration
     public function down()
     {
         Schema::table('issue_trackings', function (Blueprint $table) {
-            $table->dropColumn('accept','is_closed');
+            $table->dropColumn('phone_number','email');
         });
     }
 }

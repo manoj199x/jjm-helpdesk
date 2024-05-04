@@ -74,6 +74,27 @@
                     </div>
                 </div>
             </div>
+
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold mb-4"> Add Contact Information</h5>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label class="form-label">Phone number</label>
+                                    <input type="text" name="phone_number" class="form-control" />
+                                </div>
+                                <div class="col-sm">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
