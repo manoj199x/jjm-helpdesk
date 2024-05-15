@@ -84,10 +84,18 @@
                                 <div class="col-sm">
                                     <label class="form-label">Phone number</label>
                                     <input type="text" name="phone_number" class="form-control" />
+                                    
+                                    @error('phone_number')
+                                       <span  style="color: red" class="error"> {{ $message }} </span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label">Email</label>
                                     <input type="email" name="email" class="form-control" />
+                                    
+                                    @error('email')
+                                        <span  style="color: red" class="error"> {{ $message }} </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

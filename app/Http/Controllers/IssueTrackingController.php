@@ -110,25 +110,9 @@ class IssueTrackingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $module, $user_id)
+    public function create(Request $request)
     {
         //
-        $user_tables = [
-            'ebill' => 'ebill_login',
-            'crs' => 'crs_users',
-            'hrms' => 'hrm_users',
-        ];
-
-        $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
-        if($module!='hrms') {
-            $request->session()->put('user_name', $user[0]->name);
-        }
-        $request->session()->put('user_id', $user[0]->user_id);
-        $request->session()->put('user_type', $user[0]->user_type);
-        $request->session()->put('circle_zone', $user[0]->circle_zone);
-        $request->session()->put('id', $user[0]->id);
-        $request->session()->put('module', $module);
-
         $issue_type = IssueType::get();
         return view('issue.create', compact('issue_type'));
     }
@@ -144,6 +128,8 @@ class IssueTrackingController extends Controller
         $validatedData = $request->validate([
             'issue_related_to' => 'required',
             'sub_issue_type' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required',
             'description' => 'required',
             'video'  => 'mimes:mp4,mov,ogg,qt | max:20000',
             'audio' => 'mimes:mp3,wav|max:2048',
@@ -240,7 +226,7 @@ class IssueTrackingController extends Controller
         if(Session::get('module')=='crs' || Session::get('module')=='hrms'){
             if ($user_type == 'Zone') {
                 $zone = Session::get('circle_zone');
-             }
+            }
             if ($user_type == 'Circle') {
                 $circle_id = Session::get('circle_zone');
                 $circle = Circle::where('id', $circle_id)->first();
@@ -270,7 +256,7 @@ class IssueTrackingController extends Controller
             $data =
                 [
                     'issue_id' => $model->id,
-                    'from_user_id' => Session::get('id'),
+                    'from_user_id' => 99,
                     'to_user_id' => $zone_mapping,
                     'active' => 1,
                     'sub_date' => Carbon::now(),

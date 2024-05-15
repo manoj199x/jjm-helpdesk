@@ -35,25 +35,9 @@ class IssueStatusUpdate extends Component
             'remarks' => 'required',
         ]);
 
-       if($this->status==3)
-       {
-
-          AssignHistory::where('issue_id',$this->issueId)
-            ->where('active',1)
-            ->update([
-                'status'=>$this->status,
-                'to_remarks'=>$this->remarks,
-                'is_closed'=>1
-            ]);
-            
-          IssueTracking::where('id',$this->issueId)->update(['application_status'=>$this->status]);
-
-       }
         if($this->status==2)
         {
-
             $assign_history=AssignHistory::where('issue_id',$this->issueId)->where('active',1)->first();
-
             AssignHistory::where('issue_id',$this->issueId)->update(['active'=>0]);
             
             $data=[
@@ -63,20 +47,35 @@ class IssueStatusUpdate extends Component
                 'active'=>1,
                 'sub_date'=>$assign_history->sub_date,
                 'status'=>$this->status,
+                'from_remarks' => $this->remarks,
                 'status_updated_at'=>Carbon::now(),
             ];
             AssignHistory::create($data);
-
             IssueTracking::where('id',$this->issueId)->update(['application_status'=>$this->status]);
         }
 
+        if($this->status==3)
+        {
+            
+            AssignHistory::where('issue_id',$this->issueId)
+                ->where('active',1)
+                ->update([
+                    'status'=>$this->status,
+                    'to_remarks'=>$this->remarks,
+                ]);
+                
+            IssueTracking::where('id',$this->issueId)->update(
+                ['application_status'=>$this->status,
+                'is_closed' => 1
+                ]
+            );
+        }
+        
         return redirect()->back()->with('success', 'Issue Updated successfully!');
 
     }
     public function render()
     {
-
-
         $issue_types = IssueType::get();
         $sub_issueTypes = SubIssueType::get();
         $status_name=Status::get();

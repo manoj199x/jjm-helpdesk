@@ -54,17 +54,19 @@
                         <th>By</th>
                         <th>Assign to </th>
                         <th>Action by Assignee</th>
-                        <th>Remarks</th>
+                        <th>from remarks</th>
+                        <th>to remarks</th>
                     </thead>
                     
                     <tbody>
                         @foreach ($issue_tracking->assign_histroty as $history)
                         
                             <tr>
-                                <td> {{ $history->assigned_by->user_id }}</td>                               
+                                <td> {{ $history->assigned_by->name }}</td>                               
                                 <td> {{ $history->assign_to->name  }}</td>
                                 <td> {{ $history->status_name->name }} </td>
-                                <td> {{ $history->remarks }}</td>
+                                <td> {{ $history->from_remarks }}</td>
+                                <td> {{ $history->to_remarks }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -87,7 +89,8 @@
                                     <td>{{++$key}}</td>
                                     <td>{{$document->document_types->title}}</td>
                 
-                                    <td><a class="button small green --jb-modal" data-target="sample-modal-2"
+                                    <td>
+                                        <a class="button small green --jb-modal" data-target="sample-modal-2"
                                            href="{{ Storage::url( $document->image_path) }}"
                                            type="button" target="_blank">
                                             <i class="fa fa-eye" style="font-size:20px "></i>

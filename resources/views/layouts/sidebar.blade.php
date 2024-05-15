@@ -30,14 +30,16 @@
                     <span class="hide-menu">Issue</span>
                 </li>
                 @can('create_issue')
+                {{-- 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('issue.create') }}" aria-expanded="false">
-                <span>
-                  <i class="ti ti-article"></i>
-                </span>
+                        <span>
+                        <i class="ti ti-article"></i>
+                        </span>
                         <span class="hide-menu">Create Issue</span>
                     </a>
-                </li>
+                </li> 
+                --}}
                 @endcan
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('issue.index') }}" aria-expanded="false">
