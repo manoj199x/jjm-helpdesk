@@ -11,9 +11,15 @@
         .w-20 {
 	        width: 110px;
         }
+        .left-sidebar {
+	        background-color: #e3e2e2;
+        }
+        .user-block h4 {
+            font-size: 20px;
+        }
+        .app-header {
+	    background-color: #fff6f6;
+        }
     </style>
-
-
-
     @livewireStyles
 </head>

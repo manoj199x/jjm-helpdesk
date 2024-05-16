@@ -2,9 +2,9 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="{{route('dashboard')}}" class="text-nowrap logo-img">
+            <a href=" @if(Auth::check()) {{ route('dashboard')}} @else {{ route('issue.index') }} @endif" class="text-nowrap logo-img my-2">
 {{--                <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />--}}
-                <h3> JJM ASSAM</h3>
+                <h3> JJM Assam <br/> HelpDesk</h3>
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -17,6 +17,7 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Home</span>
                 </li>
+                @if(Auth::check())
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{route('dashboard')}}" aria-expanded="false">
                 <span>
@@ -25,22 +26,22 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Issue</span>
                 </li>
-                @can('create_issue')
-                {{-- 
+                
+                
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('issue.create') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('issue_create') }}" aria-expanded="false">
                         <span>
                         <i class="ti ti-article"></i>
                         </span>
                         <span class="hide-menu">Create Issue</span>
                     </a>
                 </li> 
-                --}}
-                @endcan
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('issue.index') }}" aria-expanded="false">
                 <span>

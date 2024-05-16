@@ -3,6 +3,10 @@
 @section('main-body')
 
     <div class="container-fluid">
+
+        <a href="{{route('issue_create')}}" class="btn btn-primary my-3">
+            Create New Issue +
+        </a>
         <div class="card">
             <div class="card-body">
                 @if(session('success'))
@@ -10,7 +14,11 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <h5 class="card-title fw-semibold mb-4"> Search</h5>
+                <h5 class="card-title fw-semibold mb-4">
+                    <span>
+                        <i class="ti ti-search"></i>
+                        </span>
+                         Search</h5>
                 <form method="GET" action="">
                     @csrf
                     <div class="mb-3">
@@ -26,7 +34,7 @@
                                     <option value="">Select issue related to</option>
                                     @foreach ($issue_type as $issue_types)
                                         <option
-                                                value="{{ $issue_types->id }}" {{ old('issue_type') == $issue_types->id ? 'selected' : '' }}>{{ $issue_types->name }} </option>
+                                                value="{{ $issue_types->id }}" {{ old('issue_type') == $issue_types->id ? 'selected' : '' }} >{{ $issue_types->name }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -53,6 +61,10 @@
         </div>
         <div class="card">
             <div class="card-body">
+                <h5 class="card-title fw-semibold mb-4">
+                    <span>
+                    <i class="ti ti-article"></i>
+                    </span> My Issues </h5> 
                 <table class="table">
                     <thead>
                     <tr>

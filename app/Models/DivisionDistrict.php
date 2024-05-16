@@ -12,7 +12,7 @@ class DivisionDistrict extends Model
         'division_id',
         'district_id',
     ];
-    protected $with = ['division','district'];
+    protected $with = ['division_master','district_master'];
 
 
     public function division()

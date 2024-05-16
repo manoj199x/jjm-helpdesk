@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Circle extends Model
 {
-    protected $table = 'circles';
+    protected $table = 'circle_master';
     use HasFactory;
     protected $fillable=[
         'circle_name'
     ];
-    protected $with = ['zone'];
+    protected $with = ['zone_master'];
 
     public function zone(){
         return $this->belongsTo(Zone::class,'zone_id','id');

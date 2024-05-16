@@ -32,16 +32,33 @@ class IssueTrackingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $module =null, $user_id =null)
     {
 
         $issue_type = IssueType::select('id', 'name')->get();
         $status = Status::select('id', 'name')->get();
+
+        $user_tables = [
+            'ebill' => 'ebill_login',
+            'crs' => 'crs_users',
+            'hrms' => 'hrm_users',
+        ];
+        if($module !=null && $user_id !=  null) {
+            $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
+            if($module!='hrms') {
+                $request->session()->put('user_name', $user[0]->name);
+            }
+            
+            $request->session()->put('user_id', $user[0]->user_id);
+            $request->session()->put('user_type', $user[0]->user_type);
+            $request->session()->put('circle_zone', $user[0]->circle_zone);
+            $request->session()->put('id', $user[0]->id);
+            $request->session()->put('module', $module);
+
+        }
         
         if(auth()->check()) {
             $user = Auth::user();
-    //      if($request->description )
-    //      {
             if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS']) ) {
                 $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty')
                     ->whereHas('assign_histroty', function ($query) {
@@ -64,6 +81,7 @@ class IssueTrackingController extends Controller
             
             })->orderBy('id','desc')->paginate(10);
         }
+
         else {
             if(session()->has('id')) {
                 $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty', 'assign_histroty')
@@ -85,24 +103,6 @@ class IssueTrackingController extends Controller
         }
         
         return view('issue.index', compact('issue_tracking', 'issue_type', 'status'));
-
-//        }
-//        if ($user->hasAnyRole(['TO-IT']))
-//        {
-//            $issue_tracking=IssueTracking::with('issue_relato_to','issue_types','assign_histroty.assign_to','assign_histroty.status_name')
-//                ->whereHas('assign_histroty', function ($query) {
-//                    $query->where('to_user_id', Auth::user()->id);
-//                })->paginate(10);
-//        }
-//        else
-//        {
-//            $issue_tracking=IssueTracking::with('issue_relato_to','issue_types','assign_histroty.assign_to','assign_histroty.status_name')
-//                ->whereHas('assign_histroty', function ($query) {
-//                    $query->where('from_user_id', Auth::user()->id);
-//                })->paginate(10);
-//
-//        }
-//        return view('issue.index',compact('issue_tracking'));
     }
 
     /**

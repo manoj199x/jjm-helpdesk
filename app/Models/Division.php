@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Division extends Model
 {
     use HasFactory;
-    protected $table = 'divisions';
+    protected $table = 'division_master';
 
     protected $fillable=[
         'division_name',
         'zone_id',
         'circle_id'
     ];
-    protected $with = ['circle','zone'];
+    protected $with = ['circle_master','zone_master'];
 
 
     public function circle(){

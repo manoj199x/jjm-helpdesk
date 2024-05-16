@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Village extends Model
 {
     use HasFactory;
+    protected $table = 'village_master';
     protected $fillable=[
         'village_name',
         'panchayat_id',

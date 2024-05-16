@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Panchayat extends Model
 {
     use HasFactory;
+    protected $table = 'panchayat_master';
     protected $fillable=[
         'panchayat_name',
         'block_id'
     ];
-    protected $with = ['block'];
+    protected $with = ['block_master'];
 
 //    public function users(){
 //        return $this->belongsToMany(User::class);

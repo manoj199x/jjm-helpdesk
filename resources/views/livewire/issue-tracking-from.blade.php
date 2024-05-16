@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Description</label>
-                                    <textarea name="description" class="form-control"
+                                    <textarea rows="7" name="description" class="form-control"
                                               id="exampleInputPassword1"></textarea>
                                 </div>
                                 @error('description') <span style="color: red">{{ $message }}</span>
@@ -76,120 +76,139 @@
             </div>
 
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title fw-semibold mb-4"> Add Contact Information</h5>
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <label class="form-label">Phone number</label>
-                                    <input type="text" name="phone_number" class="form-control" />
-                                    
-                                    @error('phone_number')
-                                       <span  style="color: red" class="error"> {{ $message }} </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" />
-                                    
-                                    @error('email')
-                                        <span  style="color: red" class="error"> {{ $message }} </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="container-fluid">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <h5 class="card-title fw-semibold mb-4"> Upload Document</h5>
-                                </div>
-                                <div class="col-sm">
-                                    <button type="button" class="btn btn-primary m-1" wire:click="addDiv"><i
-                                                class="fa fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-7">
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <label for="exampleInputEmail1" class="form-label"> Select Documet
-                                                Type</label>
-                                            <select name="documents_type[]" id="documents" wire:model="documents.0"
-                                                    class="form-select">
-
-                                                <option>Select Documernt type</option>
-                                                @foreach($document_type as $documents)
-                                                    <option value="{{$documents->id}}" {{$documents->id == 1 ? 'selected' : '' }}>{{$documents->title}}</option>
-                                                @endforeach
-                                            </select>
-                                            @php
-                                                $index=0;
-                                            @endphp
+                                            
+                                            <h5 class="card-title fw-semibold mb-4">
+                                                <span>
+                                                    <i class="ti ti-file"></i>
+                                                    </span> Upload Document</h5>
                                         </div>
                                         <div class="col-sm">
-                                            <label for="exampleInputEmail1" class="form-label">Upload file</label>
-                                            <input class="form-control" name="path_name[]" type="file"
-                                                   id="files.{{ $index}}"
-                                                   placeholder="e.g. Partnership opportunity"
-                                                   multiple>
-                                        </div>
-                                        <div class="col-sm">
+                                            <button type="button" class="btn btn-primary m-1" wire:click="addDiv">Add more <i
+                                                        class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>
-                                @foreach ($divs as $index => $div)
-                                    <div class="mb-3" wire:key="div-{{ $index }}">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <label for="exampleInputEmail1" class="form-label"> Select Document
-                                                    Type</label>
-                                                <select name="documents_type[]" id="documents.{{$index+1}}"
-                                                        wire:model="documents.{{$index+1}}" class="form-select">
-
-                                                    <option>Select Document type</option>
-                                                    @foreach($document_type as $documents)
-                                                        <option value="{{$documents->id}}">{{$documents->title}}</option>
-                                                    @endforeach
-                                                </select>
-
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <label for="exampleInputEmail1" class="form-label"> Select Documet
+                                                        Type</label>
+                                                    <select name="documents_type[]" id="documents" wire:model="documents.0"
+                                                            class="form-select">
+        
+                                                        <option>Select Documernt type</option>
+                                                        @foreach($document_type as $documents)
+                                                            <option value="{{$documents->id}}" {{$documents->id == 1 ? 'selected' : '' }}>{{$documents->title}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @php
+                                                        $index=0;
+                                                    @endphp
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label for="exampleInputEmail1" class="form-label">Upload file</label>
+                                                    <input class="form-control" name="path_name[]" type="file"
+                                                           id="files.{{ $index}}"
+                                                           placeholder="e.g. Partnership opportunity"
+                                                           multiple>
+                                                </div>
+                                                <div class="col-md-2">
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-                                                <label for="exampleInputEmail1" class="form-label">Upload file</label>
-                                                <input class="form-control" name="path_name[]" type="file"
-                                                       id="files.{{$index+1}}"
-                                                       placeholder="e.g. Partnership opportunity"
-                                                       multiple>
-
+                                        </div>
+                                        @foreach ($divs as $index => $div)
+                                            <div class="mb-3" wire:key="div-{{ $index }}">
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                        <label for="exampleInputEmail1" class="form-label"> Select Document
+                                                            Type</label>
+                                                        <select name="documents_type[]" id="documents.{{$index+1}}"
+                                                                wire:model="documents.{{$index+1}}" class="form-select">
+        
+                                                            <option>Select Document type</option>
+                                                            @foreach($document_type as $documents)
+                                                                <option value="{{$documents->id}}">{{$documents->title}}</option>
+                                                            @endforeach
+                                                        </select>
+        
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label for="exampleInputEmail1" class="form-label">Upload file</label>
+                                                        <input class="form-control" name="path_name[]" type="file"
+                                                               id="files.{{$index+1}}"
+                                                               placeholder="e.g. Partnership opportunity"
+                                                               multiple>
+        
+                                                    </div>
+                                                    <div class="col-md-2">
+        
+                                                        <button type="button" class="btn btn-danger mt-4"
+                                                                wire:click="removeDiv({{ $index}})"><i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm">
-
-                                                <button type="button" class="btn btn-danger m-1"
-                                                        wire:click="removeDiv({{ $index}})"><i class="fa fa-trash"></i>
-                                                </button>
+        
+                                        @endforeach
+        
+        
+                                    </div>
+                                </div>
+                                {{--  for sattic upload--}}
+        
+        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold mb-4">
+                                    <span>
+                                        <i class="ti ti-phone"></i>
+                                        </span>
+                                         Add Contact Information</h5>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            
+                                            <div class="form-group mb-2">
+                                                <label class="form-label">Phone number</label>
+                                                <input type="text" name="phone_number" class="form-control" />
+                                                
+                                                @error('phone_number')
+                                                <span  style="color: red" class="error"> {{ $message }} </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" name="email" class="form-control" />
+                                                
+                                                @error('email')
+                                                    <span  style="color: red" class="error"> {{ $message }} </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
-
-                                @endforeach
-
-
+                                </div>
                             </div>
                         </div>
-                        {{--  for sattic upload--}}
-
-
                     </div>
                 </div>
+                
+            </div>
+
+            <div class="container-fluid">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
 

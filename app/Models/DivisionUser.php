@@ -12,7 +12,7 @@ class DivisionUser extends Model
         'division_id',
         'user_id'
     ];
-    protected $with = ['division'];
+    protected $with = ['division_master'];
 
 //    public function users(){
 //        return $this->belongsToMany(User::class);
