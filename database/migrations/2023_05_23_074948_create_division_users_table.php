@@ -21,11 +21,6 @@ class CreateDivisionUsersTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('division_id');
-
-            $table->foreign('division_id')
-                ->references('id')
-                ->on('divisions')
-                ->onDelete('cascade');
             $table->timestamps();
         });
     }

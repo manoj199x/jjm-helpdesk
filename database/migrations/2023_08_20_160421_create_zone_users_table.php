@@ -21,11 +21,6 @@ class CreateZoneUsersTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('zone_id');
-
-            $table->foreign('zone_id')
-                ->references('id')
-                ->on('zones')
-                ->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
