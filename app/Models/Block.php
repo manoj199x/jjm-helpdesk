@@ -13,7 +13,7 @@ class Block extends Model
         'district_id'
     ];
     protected $table = 'block_master';
-    protected $with = ['district_master'];
+    protected $with = ['district'];
 
     public function district(){
         return $this->belongsTo(District::class,'district_id','id');

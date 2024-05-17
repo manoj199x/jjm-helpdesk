@@ -13,7 +13,7 @@ class Panchayat extends Model
         'panchayat_name',
         'block_id'
     ];
-    protected $with = ['block_master'];
+    protected $with = ['block'];
 
 //    public function users(){
 //        return $this->belongsToMany(User::class);

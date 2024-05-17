@@ -12,8 +12,8 @@ class District extends Model
     protected $fillable=[
         'district_name'
     ];
-    protected $with = ['zone_master'];
-    
+    protected $with = ['zone'];
+
     public function zone(){
         return $this->belongsTo(Zone::class,'zone_id','id');
     }

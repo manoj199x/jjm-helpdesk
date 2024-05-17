@@ -12,7 +12,7 @@ class Circle extends Model
     protected $fillable=[
         'circle_name'
     ];
-    protected $with = ['zone_master'];
+    protected $with = ['zone'];
 
     public function zone(){
         return $this->belongsTo(Zone::class,'zone_id','id');

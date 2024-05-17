@@ -128,7 +128,7 @@ class IssueTrackingController extends Controller
         $validatedData = $request->validate([
             'issue_related_to' => 'required',
             'sub_issue_type' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|max:10',
             'email' => 'required',
             'description' => 'required',
             'video'  => 'mimes:mp4,mov,ogg,qt | max:20000',

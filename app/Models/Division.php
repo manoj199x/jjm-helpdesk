@@ -15,7 +15,7 @@ class Division extends Model
         'zone_id',
         'circle_id'
     ];
-    protected $with = ['circle_master','zone_master'];
+    protected $with = ['circle','zone'];
 
 
     public function circle(){
