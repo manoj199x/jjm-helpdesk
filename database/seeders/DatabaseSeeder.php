@@ -20,6 +20,11 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             UserTableSeeder::class,
             RoleUserTableSeeder::class,
+
+            IssueTypesTableSeeder::class,
+            SubIssueTypesTableSeeder::class,
+            StatusTableSeeder::class,
+            ZoneMappingSeeder::class
         ]);
     }
 }
