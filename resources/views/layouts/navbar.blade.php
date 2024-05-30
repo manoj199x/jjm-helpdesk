@@ -21,8 +21,11 @@
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               
-                    @if(auth()->check())     
-                       <h4> {{ Auth::user()->name}}  </h4>
+                    @if(auth()->check())
+                        <div class="user-block">     
+                            <h4> {{ Auth::user()->name}}  </h4>
+                            <span>{{ $user_type }} </span>
+                        </div>
                     @else
                         @if(Session::has('id'))
                             <div class="user-block">

@@ -13,5 +13,11 @@ class RoleUser extends Model
        'role_id','user_id'
     ];
 
-    protected $table = 'role_user';
+    protected $table = 'help_role_user';
+
+    protected $with='role';
+
+    public function role() {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
 }

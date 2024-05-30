@@ -13,7 +13,7 @@ class AddContactNumberToUseres extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('help_users', function (Blueprint $table) {
             $table->string('contact_number')
                 ->after('email')
                 ->nullable();
@@ -29,7 +29,7 @@ class AddContactNumberToUseres extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('help_users', function (Blueprint $table) {
             $table->dropColumn('contact_number');
         });
     }

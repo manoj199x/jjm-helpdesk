@@ -12,6 +12,9 @@ class IssueTracking extends Model
    // use Searchable;
     use SoftDeletes;
     use HasFactory;
+
+    protected $table = 'help_issue_trackings';
+    
     protected $guarded = [
         'id',
     ];

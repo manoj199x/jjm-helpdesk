@@ -13,7 +13,7 @@ class CreateIssueTrackingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('issue_trackings', function (Blueprint $table) {
+        Schema::create('help_issue_trackings', function (Blueprint $table) {
             $table->id();
             $table->integer('users_id');
             $table->string('module');
@@ -34,6 +34,6 @@ class CreateIssueTrackingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('issue_trackings');
+        Schema::dropIfExists('help_issue_trackings');
     }
 }

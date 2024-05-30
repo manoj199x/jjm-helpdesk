@@ -15,16 +15,13 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            [
-                'id'    => 1,
-                'title' => 'user_access',
-            ],
-            [
-                'id'    => 2,
-                'title' => 'division_access',
-            ],
+            [ 'id'=>1,  'title' =>'user_access'],
+            [ 'id'=>13, 'title' => 'user_create'],
+            [ 'id'=>14, 'title' => 'create_issue'],
+            [ 'id'=>15, 'title' => 'update_issue'],
+            [ 'id'=>16, 'title' => 'accept_issue'],
+            [ 'id'=>17, 'title' => 'delete_issue']
         ];
-
         Permission::insert($permissions);
     }
 }

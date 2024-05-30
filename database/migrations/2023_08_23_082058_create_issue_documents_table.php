@@ -13,7 +13,7 @@ class CreateIssueDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('helpdesk_issue_documents', function (Blueprint $table) {
+        Schema::create('help_issue_documents', function (Blueprint $table) {
             $table->id();
             $table->integer('issue_id')->nullable();
             $table->integer('document_type')->nullable();
@@ -31,6 +31,6 @@ class CreateIssueDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('issue_documents');
+        Schema::dropIfExists('help_issue_documents');
     }
 }

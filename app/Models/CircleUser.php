@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CircleUser extends Model
 {
     use HasFactory;
+    
+    protected $table = 'help_circle_users';
+
     protected $guarded = [
         'id'
     ];

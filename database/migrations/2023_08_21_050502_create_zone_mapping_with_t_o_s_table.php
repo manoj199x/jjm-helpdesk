@@ -13,7 +13,7 @@ class CreateZoneMappingWithTOSTable extends Migration
      */
     public function up()
     {
-        Schema::create('zone_mapping_with_t_o_s', function (Blueprint $table) {
+        Schema::create('help_zone_mapping_with_t_o_s', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
             $table->integer('zone_id')->nullable();
@@ -29,6 +29,6 @@ class CreateZoneMappingWithTOSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zone_mapping_with_t_o_s');
+        Schema::dropIfExists('hwlp_zone_mapping_with_t_o_s');
     }
 }

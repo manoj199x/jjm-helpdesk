@@ -13,7 +13,7 @@ class AddRemarksToAssignHistories extends Migration
      */
     public function up()
     {
-        Schema::table('assign_histories', function (Blueprint $table) {
+        Schema::table('help_assign_histories', function (Blueprint $table) {
             //
             $table->text('from_remarks')->after('status')->nullable();
             $table->text('to_remarks')->after('status')->nullable();
@@ -27,7 +27,7 @@ class AddRemarksToAssignHistories extends Migration
      */
     public function down()
     {
-        Schema::table('assign_histories', function (Blueprint $table) {
+        Schema::table('help_assign_histories', function (Blueprint $table) {
 
             $table->dropColumn('from_remarks','to_remarks');
         });

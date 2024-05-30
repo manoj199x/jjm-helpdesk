@@ -13,7 +13,7 @@ class CreateHierarchiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hierarchies', function (Blueprint $table) {
+        Schema::create('help_hierarchies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateHierarchiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hierarchies');
+        Schema::dropIfExists('help_hierarchies');
     }
 }

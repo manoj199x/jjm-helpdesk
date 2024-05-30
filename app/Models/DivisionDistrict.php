@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DivisionDistrict extends Model
 {
     use HasFactory;
+    protected $able='help_division_district';
     protected $fillable=[
         'division_id',
         'district_id',

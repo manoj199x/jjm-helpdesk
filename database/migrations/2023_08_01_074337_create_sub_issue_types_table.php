@@ -13,7 +13,7 @@ class CreateSubIssueTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_issue_types', function (Blueprint $table) {
+        Schema::create('help_sub_issue_types', function (Blueprint $table) {
             $table->id();
             $table->integer('issue_type_id');
             $table->string('name');
@@ -29,6 +29,6 @@ class CreateSubIssueTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_issue_types');
+        Schema::dropIfExists('help_sub_issue_types');
     }
 }

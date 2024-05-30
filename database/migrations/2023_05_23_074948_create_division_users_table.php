@@ -13,12 +13,12 @@ class CreateDivisionUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('division_users', function (Blueprint $table) {
+        Schema::create('help_division_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
+                ->on('help_users')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('division_id');
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateDivisionUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('division_users');
+        Schema::dropIfExists('help_division_users');
     }
 }

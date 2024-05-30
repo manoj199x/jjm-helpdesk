@@ -13,7 +13,7 @@ class AddAutoIncrementPrimaryKeyToPermissionRole extends Migration
      */
     public function up()
     {
-        Schema::table('permission_role', function (Blueprint $table) {
+        Schema::table('help_permission_role', function (Blueprint $table) {
             $table->id('id');
         });
     }
@@ -25,7 +25,7 @@ class AddAutoIncrementPrimaryKeyToPermissionRole extends Migration
      */
     public function down()
     {
-        Schema::table('permission_role', function (Blueprint $table) {
+        Schema::table('help_permission_role', function (Blueprint $table) {
             $table->dropColumn('id');
         });
     }

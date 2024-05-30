@@ -13,7 +13,7 @@ class AddAcceptToIssueTrackings extends Migration
      */
     public function up()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             $table->string('accept')->after('application_status')->nullable();
             $table->string('is_closed')->after('application_status')->nullable();
         });
@@ -26,7 +26,7 @@ class AddAcceptToIssueTrackings extends Migration
      */
     public function down()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             $table->dropColumn('accept','is_closed');
         });
     }

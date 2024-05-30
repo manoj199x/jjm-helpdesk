@@ -13,7 +13,7 @@ class CreateDivisionDistrictTable extends Migration
      */
     public function up()
     {
-        Schema::create('division_district', function (Blueprint $table) {
+        Schema::create('help_division_district', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('division_id');
             $table->unsignedBigInteger('district_id');
@@ -30,6 +30,6 @@ class CreateDivisionDistrictTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('division_district');
+        Schema::dropIfExists('help_division_district');
     }
 }

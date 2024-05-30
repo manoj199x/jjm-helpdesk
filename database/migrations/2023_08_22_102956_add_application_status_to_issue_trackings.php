@@ -13,7 +13,7 @@ class AddApplicationStatusToIssueTrackings extends Migration
      */
     public function up()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             //
             $table->integer('application_status')->after('description')->nullable();
         });
@@ -26,7 +26,7 @@ class AddApplicationStatusToIssueTrackings extends Migration
      */
     public function down()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             //
             $table->dropColumn('application_status');
         });

@@ -9,6 +9,9 @@ class AssignHistory extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $table = 'help_assign_histories';
+
     protected $guarded = [
         'id'
     ];

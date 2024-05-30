@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DivisionUser extends Model
 {
     use HasFactory;
+
     protected $fillable=[
         'division_id',
         'user_id'
     ];
+    protected $table = 'help_division_users';
     protected $with = ['division'];
 
 //    public function users(){

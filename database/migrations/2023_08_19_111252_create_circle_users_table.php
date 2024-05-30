@@ -13,7 +13,7 @@ class CreateCircleUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('circle_users', function (Blueprint $table) {
+        Schema::create('help_circle_users', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->integer('circle_id');
@@ -29,6 +29,6 @@ class CreateCircleUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('circle_users');
+        Schema::dropIfExists('help_circle_users');
     }
 }

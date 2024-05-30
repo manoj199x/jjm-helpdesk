@@ -13,7 +13,7 @@ class AddShortNameToIssueTypes extends Migration
      */
     public function up()
     {
-        Schema::table('issue_types', function (Blueprint $table) {
+        Schema::table('help_issue_types', function (Blueprint $table) {
             $table->string('short_name')->after('id')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddShortNameToIssueTypes extends Migration
      */
     public function down()
     {
-        Schema::table('issue_types', function (Blueprint $table) {
+        Schema::table('help_issue_types', function (Blueprint $table) {
             $table->dropColumn('short_name');
         });
     }

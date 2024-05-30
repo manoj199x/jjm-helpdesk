@@ -13,12 +13,12 @@ class CreateZoneUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('zone_users', function (Blueprint $table) {
+        Schema::create('help_zone_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
+                ->on('help_users')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('zone_id');
             $table->timestamps();
@@ -33,6 +33,6 @@ class CreateZoneUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zone_users');
+        Schema::dropIfExists('help_zone_users');
     }
 }

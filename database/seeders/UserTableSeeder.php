@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 1,
                 'name'           => 'System Admin',
-                'email'          => 'admin@admin.com',
+                'email'          => 'sysadmin@helepdesk.com',
                 'username'          => 'sysadmin@helpdesk',
                 'password'       => bcrypt('password#123'),
                 'remember_token' => null,
@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 2,
                 'name'           => 'Ankur Talukdar',
-                'email'          => 'user@user.com',
+                'email'          => 'ankur@helepdesk.com',
                 'username'          => 'ankur@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
@@ -34,7 +34,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 3,
                 'name'           => 'Prasanta Deka',
-                'email'          => 'user@user.com',
+                'email'          => 'Prasanta@helepdesk.com',
                 'username'          => 'prsanta@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
@@ -42,7 +42,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 4,
                 'name'           => 'Felix Deori',
-                'email'          => 'user@user.com',
+                'email'          => 'felix@helepdesk.com',
                 'username'          => 'felix@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
@@ -50,7 +50,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 5,
                 'name'           => 'Chiranjit Choudhury',
-                'email'          => 'user@user.com',
+                'email'          => 'chiranjit@helepdesk.com',
                 'username'          => 'chiranjit@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
@@ -58,15 +58,15 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 6,
                 'name'           => 'Kaushik Kalita',
-                'email'          => 'kaushik@helpdesk',
-                'username'          => 'user',
+                'email'          => 'kaushik@helpdesk.com',
+                'username'          => 'kaushik@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
             ],
             [
                 'id'             => 7,
                 'name'           => 'Amanur Rahman',
-                'email'          => 'amanur@helpdesk',
+                'email'          => 'amanur@helpdesk.com',
                 'username'          => 'amanur@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
@@ -74,7 +74,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 8,
                 'name'           => 'Hemanta Sarma',
-                'email'          => 'hemanta@helpdesk',
+                'email'          => 'hemanta@helpdesk.com',
                 'username'          => 'hemanta@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
@@ -82,7 +82,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 9,
                 'name'           => 'Admin',
-                'email'          => 'admin@admin.com',
+                'email'          => 'admin@helpdesk.com',
                 'username'          => 'admin@helpdesk',
                 'password'       => bcrypt('password@123'),
                 'remember_token' => null,

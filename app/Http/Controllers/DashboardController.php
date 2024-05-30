@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\IssueTracking;
+use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\userType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,10 @@ class DashboardController extends Controller
 
         if(Auth::check()) {
             $user = Auth::user();
-            $user_type=userType::select('name')->where('id',$user->user_type)->first();
+            $roleuser=RoleUser::where('user_id',$user->id)->first();
+            $user_type = $roleuser->role->title;
+        
+
             if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS'])){
 
                 $my_issues = \App\Models\AssignHistory::where('to_user_id',auth()->user()->id)->where('active',1)->get();

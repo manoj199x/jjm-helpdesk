@@ -13,7 +13,7 @@ class AddIssueSerialNoToIssueTrackings extends Migration
      */
     public function up()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             $table->string('serial_no')->after('id')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddIssueSerialNoToIssueTrackings extends Migration
      */
     public function down()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             $table->dropColumn('serial_no');
         });
     }

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+define ('MY_PREFIX_CONSTANT','');
+
 class Division extends Model
 {
     use HasFactory;

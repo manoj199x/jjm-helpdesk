@@ -13,7 +13,7 @@ class AddUsernameToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('help_users', function (Blueprint $table) {
             $table->text('username')
                 ->after('email')
                 ->nullable();

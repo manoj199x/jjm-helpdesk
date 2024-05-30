@@ -13,9 +13,9 @@ class CreatePermissionsRolePivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->foreignId('role_id')->references('id')->on('roles')->cascadeOnDelete();
-            $table->foreignId('permission_id')->references('id')->on('permissions')->cascadeOnDelete();
+        Schema::create('help_permission_role', function (Blueprint $table) {
+            $table->foreignId('role_id')->references('id')->on('help_roles')->cascadeOnDelete();
+            $table->foreignId('permission_id')->references('id')->on('help_permissions')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +26,6 @@ class CreatePermissionsRolePivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions_role_pivot');
+        Schema::dropIfExists('help_permission_role');
     }
 }

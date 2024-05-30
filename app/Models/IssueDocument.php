@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class IssueDocument extends Model
 {
     use HasFactory;
+    
+    protected $table = 'help_issue_documents';
+
     protected $guarded = [
         'id',
     ];

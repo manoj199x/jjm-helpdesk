@@ -13,9 +13,9 @@ class CreateRoleUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->foreignId('role_id')->references('id')->on('roles')->cascadeOnDelete();
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+        Schema::create('help_role_user', function (Blueprint $table) {
+            $table->foreignId('role_id')->references('id')->on('help_roles')->cascadeOnDelete();
+            $table->foreignId('user_id')->references('id')->on('help_users')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateRoleUserPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('help_role_user');
     }
 }

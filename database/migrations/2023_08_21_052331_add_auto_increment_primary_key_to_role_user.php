@@ -13,7 +13,7 @@ class AddAutoIncrementPrimaryKeyToRoleUser extends Migration
      */
     public function up()
     {
-        Schema::table('role_user', function (Blueprint $table) {
+        Schema::table('help_role_user', function (Blueprint $table) {
             $table->id('id')->before('role_id');
         });
     }
@@ -25,7 +25,7 @@ class AddAutoIncrementPrimaryKeyToRoleUser extends Migration
      */
     public function down()
     {
-        Schema::table('role_user', function (Blueprint $table) {
+        Schema::table('help_role_user', function (Blueprint $table) {
             $table->dropColumn('id');
         });
     }

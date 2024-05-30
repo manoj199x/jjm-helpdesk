@@ -13,7 +13,7 @@ class AddContactsColumnToIssueTabel extends Migration
      */
     public function up()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             //
             $table->string('phone_number')->after('users_id');
             $table->string('email')->after('users_id');
@@ -27,7 +27,7 @@ class AddContactsColumnToIssueTabel extends Migration
      */
     public function down()
     {
-        Schema::table('issue_trackings', function (Blueprint $table) {
+        Schema::table('help_issue_trackings', function (Blueprint $table) {
             $table->dropColumn('phone_number','email');
         });
     }

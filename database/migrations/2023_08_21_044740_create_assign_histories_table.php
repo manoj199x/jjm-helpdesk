@@ -13,7 +13,7 @@ class CreateAssignHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('assign_histories', function (Blueprint $table) {
+        Schema::create('help_assign_histories', function (Blueprint $table) {
             $table->id();
             $table->integer('issue_id')->nullable();
             $table->integer('from_user_id')->nullable();
@@ -34,6 +34,6 @@ class CreateAssignHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assign_histories');
+        Schema::dropIfExists('help_assign_histories');
     }
 }

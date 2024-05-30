@@ -10,6 +10,7 @@ use App\Models\DivisionUser;
 use App\Models\IssueDocument;
 use App\Models\IssueTracking;
 use App\Models\IssueType;
+use App\Models\RoleUser;
 use App\Models\Status;
 use App\Models\SubIssueType;
 use App\Models\User;
@@ -57,8 +58,13 @@ class IssueTrackingController extends Controller
 
         }
         
+        $user_type = '';
+
         if(auth()->check()) {
             $user = Auth::user();
+            $roleuser=RoleUser::where('user_id',$user->id)->first();
+            $user_type = $roleuser->role->title;
+            
             if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS']) ) {
                 $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty')
                     ->whereHas('assign_histroty', function ($query) {
@@ -102,7 +108,7 @@ class IssueTrackingController extends Controller
             }
         }
         
-        return view('issue.index', compact('issue_tracking', 'issue_type', 'status'));
+        return view('issue.index', compact('issue_tracking', 'issue_type', 'status', 'user_type'));
     }
 
     /**
@@ -229,18 +235,18 @@ class IssueTrackingController extends Controller
             }
             if ($user_type == 'Circle') {
                 $circle_id = Session::get('circle_zone');
-                $circle = Circle::where('id', $circle_id)->first();
+                $circle = DB::table('circle_master')->where('id', $circle_id)->first();
                 $zone = $circle->zone_id;
             }
             if ($user_type == 'Division') {
                 $division_id = Session::get('circle_zone');
-                $division = Division::where('id', $division_id)->first();
+                $division = DB::table('division_master')->where('id', $division_id)->first();
                 $zone = $division->zone_id;
             }
         }
         if(Session::get('module')=='ebill') {
                 $division_id = Session::get('circle_zone');
-                $division = Division::where('id', $division_id)->first();
+                $division = DB::table('division_master')->where('id', $division_id)->first();
                 $zone = $division->zone_id;
         }
 
@@ -324,6 +330,14 @@ class IssueTrackingController extends Controller
 
     public function getIssueData($id)
     {
+        $user_type = '';
+
+        if(Auth::check()){
+            $user = Auth::user();
+            $roleuser=RoleUser::where('user_id',$user->id)->first();
+            $user_type = $roleuser->role->title;
+        }
+
         $user_tables = [
             'ebill' => 'ebill_login',
             'crs' => 'crs_users',
@@ -338,7 +352,7 @@ class IssueTrackingController extends Controller
 
         $issue_created_by = DB::table($user_tables[$module])->select('*')->where('id',$issue_tracking->users_id)->first();
 
-        return view('issue.show', compact('issue_tracking','documents','issue_created_by'));
+        return view('issue.show', compact('issue_tracking','documents','issue_created_by', 'user_type'));
     }
 
     public function delete($id)
