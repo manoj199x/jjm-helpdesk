@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             IssueTypesTableSeeder::class,
             SubIssueTypesTableSeeder::class,
             StatusTableSeeder::class,
-            ZoneMappingSeeder::class
+            ZoneMappingSeeder::class,
+            DocumentTableSeeder::class
         ]);
     }
 }

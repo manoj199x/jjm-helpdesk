@@ -24,7 +24,7 @@
                     @if(auth()->check())
                         <div class="user-block">     
                             <h4> {{ Auth::user()->name}}  </h4>
-                            <span>{{ $user_type }} </span>
+                            <span>{{ Auth::user()->role_user->role->title }} </span>
                         </div>
                     @else
                         @if(Session::has('id'))

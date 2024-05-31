@@ -63,7 +63,7 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    protected $with = ['division_users'];
+    protected $with = ['role_user'];
 //    public function __construct(array $attributes=[]){
 //        parent::__construct($attributes);
 //        self::created(function (User $user){
@@ -87,8 +87,8 @@ class User extends Authenticatable
     }
 
     public function hasAnyRole($roles)
-    {
-        return $this->roles()->whereIn('title', $roles)->exists();
+    {   
+        return $this->role_user->role->whereIn('title', $roles)->exists();
     }
 
     public function userType()

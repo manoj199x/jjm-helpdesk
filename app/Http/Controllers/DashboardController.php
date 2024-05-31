@@ -15,12 +15,10 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
+
         if(Auth::check()) {
             $user = Auth::user();
             $roleuser=RoleUser::where('user_id',$user->id)->first();
-            $user_type = $roleuser->role->title;
-        
-
             if ($user->hasAnyRole(['TO-IT']) || $user->hasAnyRole(['SPS'])){
 
                 $my_issues = \App\Models\AssignHistory::where('to_user_id',auth()->user()->id)->where('active',1)->get();
@@ -86,6 +84,6 @@ class DashboardController extends Controller
         //     }
         
 
-        return view('dashboard',compact('issue_tracking', 'total_issue','pending_issue','resolved_issue','accept_issue','user_type') );
+        return view('dashboard',compact('issue_tracking', 'total_issue','pending_issue','resolved_issue','accept_issue') );
     }
 }
