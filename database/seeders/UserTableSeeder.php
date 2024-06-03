@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
                 'id'             => 3,
                 'name'           => 'Prasanta Deka',
                 'email'          => 'Prasanta@helepdesk.com',
-                'username'          => 'prsanta@helpdesk',
+                'username'          => 'prasanta@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,
             ],

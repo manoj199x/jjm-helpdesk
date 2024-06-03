@@ -90,13 +90,12 @@ class IssueTrackingController extends Controller
 
         else {
             if(session()->has('id')) {
-                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty', 'assign_histroty')
-                ->whereHas('assign_histroty', function ($query) {
-                    $query->where('from_user_id', session()->get('id'));
-                });
+
+                $issue_tracking = IssueTracking::with('issue_relato_to', 'issue_types', 'assign_histroty', 'assign_histroty');   
 
                 $issue_tracking = $issue_tracking->when(request("issue_type"), function ($query) {
                     $query->where('issue_type', request("issue_type"));
+
     
                 })->when(request("status"), function ($query) {
                     $query->where('application_status', request("status"));
@@ -104,7 +103,9 @@ class IssueTrackingController extends Controller
                 })->when(request('ticket_no'), function ($query) {
                     $query->where('serial_no', 'like' ,'%'.request("ticket_no").'%' );
     
-                })->orderBy('id','desc')->paginate(10);
+                })
+                ->where('users_id', session()->get('id'))
+                ->orderBy('id','desc')->paginate(10);
             }
         }
         
@@ -262,7 +263,7 @@ class IssueTrackingController extends Controller
             $data =
                 [
                     'issue_id' => $model->id,
-                    'from_user_id' => 99,
+                    'from_user_id' => 1,
                     'to_user_id' => $zone_mapping,
                     'active' => 1,
                     'sub_date' => Carbon::now(),

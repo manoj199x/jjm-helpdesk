@@ -79,9 +79,12 @@ class IssueStatusUpdate extends Component
         $issue_types = IssueType::get();
         $sub_issueTypes = SubIssueType::get();
         $status_name=Status::get();
-        $role = User::whereHas('roles', function ($query) {
-            $query->where('title', 'SPS');
+        $role = User::whereHas('role_user', function ($query) {
+            $query->whereHas('role', function($query) {
+                $query->where('title', 'SPS');
+            }); 
         })->get();
+        
         $issue_tracking=IssueTracking::with('issue_relato_to','issue_types')
             ->where('id',$this->issueId)->first();
         
