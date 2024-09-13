@@ -107,6 +107,9 @@ class IssueTrackingController extends Controller
                 ->where('users_id', session()->get('id'))
                 ->orderBy('id','desc')->paginate(10);
             }
+            else {
+                return redirect('/');
+            }
         }
         
         return view('issue.index', compact('issue_tracking', 'issue_type', 'status', 'user_type'));
