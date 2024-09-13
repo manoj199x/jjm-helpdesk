@@ -42,7 +42,7 @@ class UserTableSeeder extends Seeder
             [
                 'id'             => 4,
                 'name'           => 'Felix Deori',
-                'email'          => 'felix@helepdesk.com',
+                'email'          => 'felix@helpdesk.com',
                 'username'          => 'felix@helpdesk',
                 'password'       => bcrypt('password'),
                 'remember_token' => null,

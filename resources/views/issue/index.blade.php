@@ -4,9 +4,14 @@
 
     <div class="container-fluid">
 
+       @guest
+
         <a href="{{route('issue_create')}}" class="btn btn-primary my-3">
             Create New Issue +
         </a>
+           
+       @endguest
+        
         <div class="card">
             <div class="card-body">
                 @if(session('success'))
