@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Description</label>
+                                    <label for="exampleInputPassword1" class="form-label">Description <span style="color:red" > &#42 </span></label>
                                     <textarea rows="7" name="description" class="form-control" id="exampleInputPassword1"></textarea>
                                 </div>
                                 @error('description') <span style="color: red">{{ $message }}</span>
