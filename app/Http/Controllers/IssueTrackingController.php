@@ -33,7 +33,7 @@ class IssueTrackingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $module =null, $user_id =null)
+    public function index(Request $request,  $module =null, $user_id =null)
     {
 
         $issue_type = IssueType::select('id', 'name')->get();
@@ -44,19 +44,36 @@ class IssueTrackingController extends Controller
             'crs' => 'crs_users',
             'hrms' => 'hrm_users',
         ];
-        if($module !=null && $user_id !=  null) {
-            $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
-            if($module!='hrms') {
-                $request->session()->put('user_name', $user[0]->name);
+
+
+        if( $module !=null && $user_id !=  null) {
+
+            if($module=="jjmbrain"){
+
+                $user = DB::select('select * from users where id = ?', [$user_id]);
+                $request->session()->put('id', $user[0]->id);
+                $request->session()->put('user_id', $user[0]->name);
+                $request->session()->put('user_type', $user[0]->role );
+                $request->session()->put('circle_zone', "" );
+                $request->session()->put('module', $module);
+                
+
+            }
+            else {
+                $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
+                if($module!='hrms') {
+                    $request->session()->put('user_name', $user[0]->name);
+                }
+                $request->session()->put('id', $user[0]->id);
+                $request->session()->put('user_id', $user[0]->user_id);
+                $request->session()->put('user_type', $user[0]->user_type);
+                $request->session()->put('circle_zone', $user[0]->circle_zone);
+                $request->session()->put('module', $module);
             }
             
-            $request->session()->put('user_id', $user[0]->user_id);
-            $request->session()->put('user_type', $user[0]->user_type);
-            $request->session()->put('circle_zone', $user[0]->circle_zone);
-            $request->session()->put('id', $user[0]->id);
-            $request->session()->put('module', $module);
 
         }
+
         
         $user_type = '';
 
