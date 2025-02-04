@@ -19,11 +19,11 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <label for="exampleInputEmail1" class="form-label"> Issue Related to</label>
+                                            <label for="exampleInputEmail1" class="form-label"> Issue Related to <span style="color:red" > &#42 </span></label>
                                             <select name="issue_related_to" id="issue_related_to" class="form-select"
                                                     wire:model="issue_related_to">
 
-                                                <option value="">Select issue related to</option>
+                                                <option value="">Select issue related to </option>
                                                 @foreach ($issue_types as $issue_types)
                                                     <option
                                                             value="{{ $issue_types->id }}">{{ $issue_types->name }} </option>
@@ -34,7 +34,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-sm">
-                                            <label for="exampleInputEmail1" class="form-label">Issue Type</label>
+                                            <label for="exampleInputEmail1" class="form-label">Issue Type <span style="color:red" > &#42 </span></label>
                                             @if( $issue_related_to!=4 )
                                                 <select name="sub_issue_type" id="issue_type" class="form-select">
                                                     @if ($issue_related_to )
@@ -45,24 +45,20 @@
                                                             </option>
                                                         @endforeach
                                                     @endif
-
-                                                    @else
-                                                        <input class="form-control" type="text"
-                                                               placeholder="Enter issue type"
-                                                               value="">
-                                                    @endif
-
                                                 </select>
-                                                @error('sub_issue_type')
-                                                <span style="color: red">{{ $message }}</span>
-                                                @enderror
+                                            @else
+                                                 <input class="form-control" name="sub_issue_type" type="text" placeholder="Enter issue type" value="">
+                                            @endif
+
+                                            @error('sub_issue_type')
+                                                    <span style="color: red">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Description</label>
-                                    <textarea rows="7" name="description" class="form-control"
-                                              id="exampleInputPassword1"></textarea>
+                                    <textarea rows="7" name="description" class="form-control" id="exampleInputPassword1"></textarea>
                                 </div>
                                 @error('description') <span style="color: red">{{ $message }}</span>
 
@@ -183,7 +179,7 @@
                                         <div class="col-sm">
                                             
                                             <div class="form-group mb-2">
-                                                <label class="form-label">Phone number</label>
+                                                <label class="form-label">Phone number <span style="color:red" > &#42 </span></label>
                                                 <input type="text" name="phone_number" class="form-control" />
                                                 
                                                 @error('phone_number')
@@ -191,7 +187,7 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label class="form-label">Email</label>
+                                                <label class="form-label">Email <span style="color:red" > &#42 </span></label>
                                                 <input type="email" name="email" class="form-control" />
                                                 
                                                 @error('email')
