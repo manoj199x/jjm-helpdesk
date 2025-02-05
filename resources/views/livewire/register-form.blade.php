@@ -12,7 +12,7 @@
                         @endforeach
                     </select>
                     @error('user_type')
-                    <span style="color: red">{{ $message }}</span
+                    <span style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-sm">

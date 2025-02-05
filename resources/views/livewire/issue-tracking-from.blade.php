@@ -20,17 +20,15 @@
                                     <div class="row">
                                         <div class="col-sm">
                                             <label for="exampleInputEmail1" class="form-label"> Issue Related to <span style="color:red" > &#42 </span></label>
-                                            <select name="issue_related_to" id="issue_related_to" class="form-select"
-                                                    wire:model="issue_related_to">
+                                            <select name="issue_related_to" id="issue_related_to" class="form-select" wire:model="issue_related_to">
 
                                                 <option value="">Select issue related to </option>
                                                 @foreach ($issue_types as $issue_types)
-                                                    <option
-                                                            value="{{ $issue_types->id }}">{{ $issue_types->name }} </option>
+                                                    <option {{ old('issue_related_to') == $issue_types->id ? 'selected' : '' }} value="{{ $issue_types->id }}">{{ $issue_types->name }} </option>
                                                 @endforeach
                                             </select>
                                             @error('issue_related_to')
-                                            <span style="color: red">{{ $message }}</span>
+                                                <span style="color: red">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-sm">
@@ -97,7 +95,7 @@
                                         <div class="mb-3">
                                             <div class="row">
                                                 <div class="col-md-5">
-                                                    <label for="exampleInputEmail1" class="form-label"> Select Documet
+                                                    <label for="exampleInputEmail1" class="form-label"> Select Document
                                                         Type</label>
                                                     <select name="documents_type[]" id="documents" wire:model="documents.0"
                                                             class="form-select">
