@@ -71,7 +71,7 @@ class IssueStatusUpdate extends Component
             );
         }
         
-        return redirect()->back()->with('success', 'Issue Updated successfully!');
+        return redirect()->route('get_issue_data',$this->issueId)->with('success', 'Issue Updated successfully!');
 
     }
     public function render()
