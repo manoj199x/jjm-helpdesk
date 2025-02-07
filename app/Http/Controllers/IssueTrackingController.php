@@ -47,6 +47,7 @@ class IssueTrackingController extends Controller
 
 
         if( $module !=null && $user_id !=  null) {
+            $user_id = base64_decode($user_id);
 
             if($module=="jjmbrain"){
 
