@@ -62,6 +62,7 @@ class IssueTrackingController extends Controller
             }
             else {
                 $user = DB::select('select * from '.$user_tables[$module].' where id = ?', [$user_id]);
+                if($user){
                 if($module!='hrms') {
                     $request->session()->put('user_name', $user[0]->name);
                 }
@@ -70,6 +71,9 @@ class IssueTrackingController extends Controller
                 $request->session()->put('user_type', $user[0]->user_type);
                 $request->session()->put('circle_zone', $user[0]->circle_zone);
                 $request->session()->put('module', $module);
+            }else{
+                    return redirect('/');
+            }
             }
             
 
