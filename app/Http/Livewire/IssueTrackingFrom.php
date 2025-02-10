@@ -24,8 +24,10 @@ class IssueTrackingFrom extends Component
 {
     use WithFileUploads;
     public $message;
-    public $issue_related_to;
+    public $issue_type;
+    public $selected_issue_type;
     public $sub_issue_type;
+    public $selected_sub_issue_type;
     public $description;
     public $document;
     public $image;
@@ -38,6 +40,42 @@ class IssueTrackingFrom extends Component
     public $descrption;
     public $maxOptions = 7;
     public $results=[];
+    public $phone_number;
+    public $email;
+
+    public function mount() {
+
+        $this->issue_type = IssueType::get();
+        $this->document = Document::get();
+        $this->results = [];
+        if($this->description) {
+            $this->results = IssueTracking::search($this->description)->get();
+        }
+    
+    }
+
+    public function updatedSelectedIssueType()
+    {
+        $this->sub_issue_type = SubIssueType::where('issue_type_id', $this->selected_issue_type)->get();
+    }
+
+    public function render()
+    {
+        return view('livewire.issue-tracking-from');
+    }
+
+    public function save() {
+        $this->validate(
+            [
+                $this->selected_issue_type => 'required',
+                $this->selected_sub_issue_type => 'required',
+                $this->description => 'required',
+                $this->phone_number => 'required',
+                $this->email => 'required',             
+            ]
+        );
+    }
+
 
     public function addDiv()
     {
@@ -53,26 +91,6 @@ class IssueTrackingFrom extends Component
         $this->divs = array_values($this->divs); // Re-index the array after removing an element
     }
 
-    public function render()
-    {
-        $issue_types = IssueType::get();
-        $sub_issueTypes = SubIssueType::where('issue_type_id', $this->issue_related_to)->get();
-        $document = Document::get();
-        $results = [];
-        if($this->description) {
-            $this->results = IssueTracking::search($this->description)->get();
-        }
-        return view(
-            'livewire.issue-tracking-from',
-
-            [
-                'issue_types' => $issue_types,
-                'sub_issueTypes'=>$sub_issueTypes,
-                'document_type'=>$document,
-                'results'=>$results,
-            ]
-        );
-    }
 
     public function clearSearch()
     {

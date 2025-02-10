@@ -20,32 +20,31 @@
                                     <div class="row">
                                         <div class="col-sm">
                                             <label for="exampleInputEmail1" class="form-label"> Issue Related to <span style="color:red" > &#42 </span></label>
-                                            <select name="issue_related_to" id="issue_related_to" class="form-select" wire:model="issue_related_to">
+                                            <select class="form-select" wire:model="selected_issue_type">
 
                                                 <option value="">Select issue related to </option>
-                                                @foreach ($issue_types as $issue_types)
-                                                    <option {{ old('issue_related_to') == $issue_types->id ? 'selected' : '' }} value="{{ $issue_types->id }}">{{ $issue_types->name }} </option>
+                                                @foreach ($this->issue_type as $issue_type)
+                                                    <option value="{{ $issue_type->id }}">{{ $issue_type->name }} </option>
                                                 @endforeach
                                             </select>
-                                            @error('issue_related_to')
+                                            @error('selected_issue_type')
                                                 <span style="color: red">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="col-sm">
                                             <label for="exampleInputEmail1" class="form-label">Issue Type <span style="color:red" > &#42 </span></label>
-                                            @if( $issue_related_to!=4 )
-                                                <select name="sub_issue_type" id="issue_type" class="form-select">
-                                                    @if ($issue_related_to )
-
-                                                        @foreach ($sub_issueTypes as $sub_issueType)
+                                            @if( $this->selected_issue_type !=4 )
+                                                <select class="form-select" wire:model="sub_issue_type" >
+                                                    @if ($this->selected_issue_type)
+                                                        @foreach ($this->sub_issue_type as $sub_issue_type)
                                                             <option
-                                                                    value="{{ $sub_issueType->id }}">{{ $sub_issueType->name }}
+                                                                    value="{{ $sub_issue_type->id }}">{{ $sub_issue_type->name }}
                                                             </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
                                             @else
-                                                 <input class="form-control" name="sub_issue_type" type="text" placeholder="Enter issue type" value="">
+                                                 <input class="form-control" wire:model="sub_issue_type" type="text" placeholder="Enter issue type" value="">
                                             @endif
 
                                             @error('sub_issue_type')
@@ -55,13 +54,12 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Description <span style="color:red" > &#42 </span></label>
-                                    <textarea rows="7" name="description" class="form-control" id="exampleInputPassword1"></textarea>
+                                    <label class="form-label">Description <span style="color:red" > &#42 </span></label>
+                                    <textarea rows="7" wire:model="description" class="form-control" id="exampleInputPassword1"></textarea>
                                 </div>
-                                @error('description') <span style="color: red">{{ $message }}</span>
-
+                                @error('description') 
+                                    <span style="color: red">{{ $message }}</span>
                                 @enderror
-
 
                             </div>
                         </div>
@@ -113,7 +111,6 @@
                                                     <label for="exampleInputEmail1" class="form-label">Upload file</label>
                                                     <input class="form-control" name="path_name[]" type="file"
                                                            id="files.{{ $index}}"
-                                                           placeholder="e.g. Partnership opportunity"
                                                            multiple>
                                                 </div>
                                                 <div class="col-md-2">
@@ -126,21 +123,18 @@
                                                     <div class="col-md-5">
                                                         <label for="exampleInputEmail1" class="form-label"> Select Document
                                                             Type</label>
-                                                        <select name="documents_type[]" id="documents.{{$index+1}}"
-                                                                wire:model="documents.{{$index+1}}" class="form-select">
+                                                        <select name="documents_type[]" id="documents.{{$index+1}}" wire:model="documents.{{$index+1}}" class="form-select">
         
                                                             <option>Select Document type</option>
-                                                            @foreach($document_type as $documents)
-                                                                <option value="{{$documents->id}}">{{$documents->title}}</option>
+                                                            @foreach( $this->document_type as $documents)
+                                                                <option value="{{$this->document_type->id}}">{{$this->document_type->title}}</option>
                                                             @endforeach
                                                         </select>
         
                                                     </div>
                                                     <div class="col-md-5">
                                                         <label for="exampleInputEmail1" class="form-label">Upload file</label>
-                                                        <input class="form-control" name="path_name[]" type="file"
-                                                               id="files.{{$index+1}}"
-                                                               placeholder="e.g. Partnership opportunity"
+                                                        <input class="form-control" name="path_name[]" type="file" id="files.{{$index+1}}" placeholder="e.g. Partnership opportunity"
                                                                multiple>
         
                                                     </div>
@@ -178,7 +172,7 @@
                                             
                                             <div class="form-group mb-2">
                                                 <label class="form-label">Phone number <span style="color:red" > &#42 </span></label>
-                                                <input type="text" name="phone_number" class="form-control" />
+                                                <input type="text" wire:model="phone_number" class="form-control" />
                                                 
                                                 @error('phone_number')
                                                 <span  style="color: red" class="error"> {{ $message }} </span>
@@ -186,7 +180,7 @@
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label class="form-label">Email <span style="color:red" > &#42 </span></label>
-                                                <input type="email" name="email" class="form-control" />
+                                                <input type="email" wire:model="email" class="form-control" />
                                                 
                                                 @error('email')
                                                     <span  style="color: red" class="error"> {{ $message }} </span>
