@@ -36,7 +36,7 @@ class IssueTrackingController extends Controller
     public function index(Request $request,  $module =null, $user_id =null)
     {
 
-        $issue_type = IssueType::select('id', 'name')->get();
+        $issue_type = IssueType::all();
         $status = Status::select('id', 'name')->get();
 
         $user_tables = [
@@ -145,7 +145,7 @@ class IssueTrackingController extends Controller
     public function create(Request $request)
     {
         //
-        $issue_type = IssueType::get();
+        $issue_type = IssueType::all();
         return view('issue.create', compact('issue_type'));
     }
 

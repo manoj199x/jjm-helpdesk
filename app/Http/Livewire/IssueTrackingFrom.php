@@ -55,7 +55,7 @@ class IssueTrackingFrom extends Component
 
     public function render()
     {
-        $issue_types = IssueType::get();
+        $issue_types = IssueType::all();
         $sub_issueTypes = SubIssueType::where('issue_type_id', $this->issue_related_to)->get();
         $document = Document::get();
         $results = [];
