@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('register', [\App\Http\Controllers\RegisterController::class, 'create'])->name('register');
 Route::post('register', [\App\Http\Controllers\RegisterController::class, 'store'])->name('register');
+Route::get('test-fcm', [\App\Http\Controllers\LoginController::class, 'testFCM'])->name('test-fcm');
 Route::middleware('auth')->post('/update-fcm-token', [\App\Http\Controllers\LoginController::class, 'updateFcmToken']);
 Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 
