@@ -15,3 +15,4 @@ yarn-error.log
 /.idea
 /.vscode
 /storage/firebase/firebase_credentials.json
+/public/firebase-messaging-sw.js
