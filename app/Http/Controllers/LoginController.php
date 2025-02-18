@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\FCMHelpers;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -22,4 +24,18 @@ class LoginController extends Controller
 
         return response()->json(['message' => 'Token updated successfully']);
     }
+     public function testFCM(Request $request)
+    {
+        $user = User::find(4); // Get the specific user
+
+        if ($user && $user->fcm_token) {
+            FCMHelpers::sendNotification(
+                $user->fcm_token,
+                "New Ticket Created for EBill ",
+                "Issue: Fun Demand"
+            );
+        }
+    }
+
+
 }

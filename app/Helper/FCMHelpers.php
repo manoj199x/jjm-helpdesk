@@ -8,13 +8,36 @@ class FCMHelpers
 {
     public static function sendNotification($fcmToken, $title, $body)
     {
+//        $messaging = app('firebase.messaging');
+//
+//        $message = CloudMessage::fromArray([
+//            'token' => $fcmToken,
+//            'notification' => ['title' => 'Hello!', 'body' => 'This is a test notification.'],
+//        ]);
+//        dd($message);
         $messaging = app('firebase.messaging');
 
         $message = CloudMessage::fromArray([
             'token' => $fcmToken,
-            'notification' => ['title' => 'Hello!', 'body' => 'This is a test notification.'],
+            'data' => [ // 🔥 Use 'data' instead of 'notification'
+                'title' => $title,
+                'body' => $body,
+                'icon' => url('/assets/images/logos/logo-jjm.svg'),
+                'click_action' => url('/') // URL to open when clicked
+            ],
+            'webpush' => [
+                'headers' => [
+                    'Urgency' => 'high'
+                ],
+                'notification' => [
+                    'title' => $title,
+                    'body' => $body,
+                    'icon' => url('/assets/images/logos/logo-jjm.svg')
+                ]
+            ]
         ]);
-        dd($message);
+
+        $messaging->send($message);
 
 
         $serverKey = env('FIREBASE_SERVER_KEY');

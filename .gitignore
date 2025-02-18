@@ -15,3 +15,5 @@ yarn-error.log
 /.idea
 /.vscode
 /public/firebase-messaging-sw.js
+/storage/firebase/firebase_credentials.json
+composer.lock
