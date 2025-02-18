@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\FCMHelpers;
 use App\Models\AssignHistory;
 use App\Models\Circle;
 use App\Models\CircleUser;
@@ -35,7 +36,14 @@ class IssueTrackingController extends Controller
      */
     public function index(Request $request,  $module =null, $user_id =null)
     {
-
+//        $user = User::find(4); // Get the specific user
+//        if ($user && $user->fcm_token) {
+//            FCMHelpers::sendNotification(
+//                $user->fcm_token,
+//                "New Ticket Created for fffhfhhf ",
+//                "Issue: fjfififj "
+//            );
+//        }
         $issue_type = IssueType::all();
         $status = Status::select('id', 'name')->get();
 
@@ -296,6 +304,14 @@ class IssueTrackingController extends Controller
                     'status_updated_at' => Carbon::now(),
                 ];
             AssignHistory::create($data);
+            $user = User::find($zone_mapping); // Get the specific user
+            if ($user && $user->fcm_token) {
+                FCMHelpers::sendNotification(
+                    $user->fcm_token,
+                    "New Ticket Created for '{$model->issue_related_to}' ",
+                    "Issue: '{$model->description}'"
+                );
+            }
         }
 
         return redirect()->back()->with('success', 'Issue submitted successfully!');
