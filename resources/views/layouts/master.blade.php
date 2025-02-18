@@ -87,20 +87,14 @@
 
     // Listen for incoming messages
     // Listen for incoming messages
-    // onMessage(messaging, (payload) => {
-    //     console.log("Message received:", payload);
-    //     if ('serviceWorker' in navigator) {
-    //         navigator.serviceWorker.ready.then((registration) => {
-    //             registration.showNotification(payload.notification.title, {
-    //                 body: payload.notification.body,
-    //                 icon: payload.notification.icon,
-    //                 data: { url: payload.notification.click_action }
-    //             });
-    //         });
-    //     } else {
-    //         console.warn("Service Worker not available.");
-    //     }
-    // });
+    onMessage(messaging, (payload) => {
+        console.log("Foreground message received:", payload);
+
+        new Notification(payload.data.title, {
+            body: payload.data.body,
+            icon: payload.data.icon
+        });
+    });
 
     requestPermission();
 </script>
