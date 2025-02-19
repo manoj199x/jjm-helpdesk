@@ -79,7 +79,13 @@
                             "X-CSRF-TOKEN": csrfToken || ""
                         },
                         body: JSON.stringify({fcm_token: token})
-                    });
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("✅ Token saved successfully:", data);
+                            sessionStorage.setItem('fcm_token', token); // Save in sessionStorage for quick access
+                        })
+                        .catch(error => console.error("❌ Error saving token:", error));;
                 });
             }
         });

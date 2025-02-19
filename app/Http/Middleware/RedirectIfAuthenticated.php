@@ -19,8 +19,6 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        Session::put('fcm_token', $request->fcm_token);
-
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {

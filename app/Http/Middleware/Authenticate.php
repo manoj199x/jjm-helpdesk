@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        Session::put('fcm_token', $request->fcm_token);
+        $request->session()->put('fcm_token', $request->fcm_token);
 
 
         if (! $request->expectsJson()) {

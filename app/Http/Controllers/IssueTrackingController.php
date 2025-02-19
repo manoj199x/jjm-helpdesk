@@ -179,6 +179,7 @@ class IssueTrackingController extends Controller
         $issue_type = IssueType::select('short_name')->where('id', $request->issue_related_to)->first();
         $user_type =  Session::get('user_type');
         $fcm_token = Session::get('fcm_token');
+
         $timestamp = time();
         $currentDate = date('Y-m-d ', $timestamp);
         $lastRecord = IssueTracking::latest()->first();
