@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Helper\FCMHelpers;
 use App\Models\AssignHistory;
 use App\Models\Circle;
 use App\Models\CircleUser;
@@ -34,9 +35,9 @@ class IssueStatusUpdate extends Component
             'status' => 'required',
             'remarks' => 'required',
         ]);
-
         if($this->status==2)
         {
+
             $assign_history=AssignHistory::where('issue_id',$this->issueId)->where('active',1)->first();
             AssignHistory::where('issue_id',$this->issueId)->update(['active'=>0]);
             
@@ -70,7 +71,15 @@ class IssueStatusUpdate extends Component
                 ]
             );
         }
-        
+        $issue = IssueTracking::where('id', $this->issueId)->first();
+
+        if ($issue && $issue->fcm_token) {
+            FCMHelpers::sendNotification(
+                $issue->fcm_token,
+                "Status Updated for Ticket '{$issue->serial_no}' ",
+                "Issue: '{$issue->description}'"
+            );
+        }
         return redirect()->route('get_issue_data',$this->issueId)->with('success', 'Issue Updated successfully!');
 
     }

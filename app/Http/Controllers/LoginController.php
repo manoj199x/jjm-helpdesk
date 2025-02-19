@@ -6,6 +6,8 @@ use App\Helper\FCMHelpers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
+use Session;
+
 
 class LoginController extends Controller
 {
@@ -19,6 +21,7 @@ class LoginController extends Controller
         $request->validate([
             'fcm_token' => 'required'
         ]);
+        Session::put('fcm_token', $request->fcm_token);
 
         auth()->user()->update(['fcm_token' => $request->fcm_token]);
 
