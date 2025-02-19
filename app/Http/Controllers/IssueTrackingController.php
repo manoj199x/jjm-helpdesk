@@ -178,7 +178,7 @@ class IssueTrackingController extends Controller
 
         $issue_type = IssueType::select('short_name')->where('id', $request->issue_related_to)->first();
         $user_type =  Session::get('user_type');
-
+        $fcm_token = Session::get('fcm_token');
         $timestamp = time();
         $currentDate = date('Y-m-d ', $timestamp);
         $lastRecord = IssueTracking::latest()->first();
@@ -202,6 +202,7 @@ class IssueTrackingController extends Controller
                 'sub_issue_type' => $request->sub_issue_type,
                 'description' => $request->description,
                 'application_status' => 4,
+                'fcm_token' => $fcm_token,
             ];
 
         $model = IssueTracking::create($data);
@@ -418,6 +419,7 @@ class IssueTrackingController extends Controller
         else
         {
             IssueTracking::where('id',$id)->update(['accept'=>1,'application_status'=>1]);
+
             return redirect()->back()->with('success', 'Issue  Accepted!');
         }
 
