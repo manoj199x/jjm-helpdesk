@@ -21,7 +21,6 @@ class LoginController extends Controller
         $request->validate([
             'fcm_token' => 'required'
         ]);
-        Session::put('fcm_token', $request->fcm_token);
 
         auth()->user()->update(['fcm_token' => $request->fcm_token]);
 
