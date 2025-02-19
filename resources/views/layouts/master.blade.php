@@ -28,6 +28,13 @@
         {{--        </div>--}}
         @yield('main-body')
     </div>
+    <!-- Notification Permission Popup -->
+    <div id="notification-popup" style="display: none; position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%);
+    background: grey; color:white; padding: 50px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; z-index: 1000;">
+        <p>Enable notifications to receive important updates.</p>
+        <button id="allow-notifications" style="background: green; color: white; padding: 8px 12px; border: none; cursor: pointer; margin:10px">Allow</button>
+        <button id="deny-notifications" style="background: red; color: white; padding: 8px 12px; border: none; cursor: pointer;">Deny</button>
+    </div>
 </div>
 @include('layouts.script')
 </body>
@@ -101,8 +108,36 @@
             icon: payload.data.icon
         });
     });
+    function checkNotificationStatus() {
+        if (Notification.permission === "denied") {
+            alert("You've blocked notifications! To enable them, go to Chrome Settings > Privacy and Security > Site Settings > Notifications.");
+        }
+    }
 
-    requestPermission();
+    // Show popup for notification permission
+    window.onload = function () {
+        const popup = document.getElementById('notification-popup');
+        if (Notification.permission !== "granted") {
+            popup.style.display = 'block';
+        }
+
+        if (Notification.permission === "default") {
+            popup.style.display = 'block';
+        } else if (Notification.permission === "denied") {
+            checkNotificationStatus();
+        }
+
+        document.getElementById('allow-notifications').addEventListener('click', function () {
+            popup.style.display = 'none';
+            requestPermission();
+        });
+
+        document.getElementById('deny-notifications').addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
+    };
+    // requestPermission();
 </script>
+
 
 </html>
