@@ -6,7 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Session;
 class RedirectIfAuthenticated
 {
     /**
@@ -19,6 +19,8 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+        Session::put('fcm_token', $request->fcm_token);
+
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
